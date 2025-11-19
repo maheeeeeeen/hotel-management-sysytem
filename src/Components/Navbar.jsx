@@ -1,4 +1,5 @@
 "use client";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   NavBody,
@@ -15,17 +16,21 @@ import { useState } from "react";
 export function NavbarDemo() {
   const navItems = [
     {
-      name: "Features",
-      link: "#features",
+      name: "Home",
+      link: "/",
     },
     {
-      name: "Pricing",
-      link: "#pricing",
+      name: "Rooms",
+      link: "/rooms",
     },
     {
       name: "Contact",
-      link: "#contact",
+      link: "/contact",
     },
+    {
+      name: "About",
+      link: "/about",
+    }
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,8 +43,13 @@ export function NavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            <Link to="/signin">
+            <NavbarButton variant="secondary">Sign In</NavbarButton>
+            </Link>
+            <Link to="/signup">
+            
+            <NavbarButton variant="primary">Sign Up</NavbarButton>
+            </Link>
           </div>
         </NavBody>
 
