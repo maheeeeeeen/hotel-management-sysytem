@@ -1,72 +1,68 @@
-"use client";
 import React from "react";
 import { Label } from "../Components/ui/LabelUi";
 import { Input } from "../Components/ui/InputUI.";
 import { cn } from "../lib/utils";
-import {
-    IconBrandGithub,
-    IconBrandGoogle,
-    IconBrandOnlyfans,
-} from "@tabler/icons-react";
 
 export function SignInForm() {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form submitted");
-    };
-    return (
-        <div
-            className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
-            <h2 className="text-center text-xl font-bold text-neutral-800 dark:text-neutral-200">
-                Sign In       </h2>
-            <p className="text-center mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-                sign in here top get access to your account
-            </p>
-            <form className="my-8" onSubmit={handleSubmit}>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted");
+  };
 
-                <LabelInputContainer className="mb-4">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input name="email" placeholder="projectmayhem@fc.com" type="email" />
-                </LabelInputContainer>
-                <LabelInputContainer className="mb-4">
-                    <Label htmlFor="password">Password</Label>
-                    <Input name="password" placeholder="••••••••" type="password" />
-                </LabelInputContainer>
+  return (
+    <div className="mx-auto w-full max-w-md rounded-2xl bg-white px-6 py-8 shadow-lg">
+      <h2 className="text-center text-2xl font-bold text-neutral-800">
+        Sign In
+      </h2>
 
-                <button
-                    className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
-                    type="submit">
-                    Sign In &rarr;
-                    <BottomGradient />
-                </button>
+      <p className="mt-2 text-center text-sm text-neutral-600">
+        Sign in here to get access to your account
+      </p>
 
-                <div
-                    className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
+      <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+        <LabelInputContainer>
+          <Label htmlFor="email">Email Address</Label>
+          <Input
+            name="email"
+            placeholder="your@email.com"
+            type="email"
+            className="h-11 rounded-md border-gray-300 text-sm"
+          />
+        </LabelInputContainer>
 
-            </form>
-        </div>
-    );
+        <LabelInputContainer>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            name="password"
+            placeholder="••••••••"
+            type="password"
+            className="h-11 rounded-md border-gray-300 text-sm"
+          />
+        </LabelInputContainer>
+
+        <button
+          type="submit"
+          className="group relative flex h-11 w-full items-center justify-center rounded-md bg-gradient-to-br from-black to-neutral-700 font-medium text-white transition hover:brightness-110"
+        >
+          Sign In →
+          <BottomGradient />
+        </button>
+
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
+      </form>
+    </div>
+  );
 }
 
-const BottomGradient = () => {
-    return (
-        <>
-            <span
-                className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
-            <span
-                className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
-        </>
-    );
-};
+const BottomGradient = () => (
+  <>
+    <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
+    <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover:opacity-100" />
+  </>
+);
 
-const LabelInputContainer = ({
-    children,
-    className
-}) => {
-    return (
-        <div className={cn("flex w-full flex-col space-y-2", className)}>
-            {children}
-        </div>
-    );
-};
-
+const LabelInputContainer = ({ children, className }) => (
+  <div className={cn("flex w-full flex-col space-y-2", className)}>
+    {children}
+  </div>
+);
