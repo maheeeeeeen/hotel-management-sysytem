@@ -4,6 +4,9 @@ import Layout from './Layout/Layout'
 import HomePage from "./Pages/Guest/HomePage";
 import { SignInForm } from './Pages/SignIn';
 import { SignUpForm } from './Pages/SignUp';
+import ContactUs from './Pages/Guest/ContactUs';
+import AboutUs from './Pages/Guest/AboutUs';
+import Rooms from './Pages/Guest/Rooms';
 
 function App() {
 
@@ -15,6 +18,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/rooms" element={<Rooms />} />
       </Route>
     </Routes>
 

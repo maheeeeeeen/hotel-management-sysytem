@@ -29,9 +29,9 @@ export default function HomePage() {
         className="mySwiper"
       >
         <div className='position-relative'>
-          <SwiperSlide><img src={slider1} className='w-full  rounded-2xl' /></SwiperSlide>
-          <SwiperSlide><img src={slider2} className='  rounded-2xl' /></SwiperSlide>
-          <SwiperSlide><img src={slider3} className='  rounded-2xl' /></SwiperSlide>
+          <SwiperSlide><img src={slider1} className='w-full  ' /></SwiperSlide>
+          <SwiperSlide><img src={slider2} className='  ' /></SwiperSlide>
+          <SwiperSlide><img src={slider3} className='  ' /></SwiperSlide>
           <div className='position-absolute' >
             <SignInForm />
           </div>
