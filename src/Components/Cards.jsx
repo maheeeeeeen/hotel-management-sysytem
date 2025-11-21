@@ -1,6 +1,10 @@
+import { IoLocationOutline } from "react-icons/io5";
 import React from "react";
 
+
+
 import Button from "./Button";
+import { Heading1, Heading2 } from "./Typography";
 export function RoomCard({ img, title, description, price, space }) {
   const statusColors = {
     available: "bg-green-500",
@@ -18,9 +22,8 @@ export function RoomCard({ img, title, description, price, space }) {
           className="w-full h-48 sm:h-56 md:h-64 lg:h-48 xl:h-56 object-cover"
         />
         <span
-          className={`absolute top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full ${
-            statusColors[space] || "bg-gray-400"
-          }`}
+          className={`absolute top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full ${statusColors[space] || "bg-gray-400"
+            }`}
         >
           {space.charAt(0).toUpperCase() + space.slice(1)}
         </span>
@@ -39,6 +42,23 @@ export function RoomCard({ img, title, description, price, space }) {
           <Button text="View details" />
         </div>
       </div>
+    </div>
+  );
+}
+
+export function GridCard({ icon, title, desc }) {
+  return (
+    <div className="flex flex-col justify-center items-center text-center bg-yellow-200 p-6 sm:p-8 rounded-lg shadow-lg transform transition hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none">
+      {/* Icon */}
+      <div className="text-4xl sm:text-5xl mb-4">
+        {icon}
+      </div>
+
+      {/* Title */}
+      <Heading2 text={title} className="text-xl sm:text-2xl font-semibold mb-2" />
+
+      {/* Description */}
+      <p className="text-sm sm:text-base text-gray-700">{desc}</p>
     </div>
   );
 }
