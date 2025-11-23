@@ -1,6 +1,6 @@
 import React from "react";
 import { Label } from "../../Components/ui/LabelUi";
-import { Input } from "../../Components/ui/InputUI";
+import { Input } from "../../Components/ui/InputUI.";
 import { cn } from "../../lib/utils";
 
 export function BookingForm() {
