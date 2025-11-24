@@ -1,13 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "../Components/ui/LabelUi";
 import { Input } from "../Components/ui/InputUI.";
 import { cn } from "../lib/utils";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../services/AuthService";
+import { toast, ToastContainer } from "react-toastify";
 
 export function SignInForm() {
-  const handleSubmit = (e) => {
+  const service = new AuthService();
+  const [formdata, setformdata] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  function handleChange(e) {
+    setformdata({ ...formdata, [e.target.name]: e.target.value });
+  }
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Form submitted");
-  };
+    try {
+      const res = await service.login(formdata);
+      console.log(res);
+      localStorage.setItem("token", res.token);
+      toast("login Successful!");
+
+      navigate("/");
+    } catch (error) {
+      
+       toast(error.response?.data?.message || "Something went wrong");
+     
+    }
+  }
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-white px-6 py-8 shadow-lg">
@@ -23,6 +46,7 @@ export function SignInForm() {
         <LabelInputContainer>
           <Label htmlFor="email">Email Address</Label>
           <Input
+            onChange={handleChange}
             name="email"
             placeholder="your@email.com"
             type="email"
@@ -33,6 +57,7 @@ export function SignInForm() {
         <LabelInputContainer>
           <Label htmlFor="password">Password</Label>
           <Input
+            onChange={handleChange}
             name="password"
             placeholder="••••••••"
             type="password"
@@ -50,6 +75,7 @@ export function SignInForm() {
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
       </form>
+      <ToastContainer />
     </div>
   );
 }
