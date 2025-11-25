@@ -1,5 +1,6 @@
 import axios from "axios";
 import { allApiEndponts } from "./ApiUrl";
+import axiosInstance from "./interceptor/interceptor";
 
 export class AuthService {
   async SignUp(body) {
@@ -30,5 +31,18 @@ export class AuthService {
       throw error;
     }
   }
+
+  async getProfile() {
+    try {
+      const response = await axiosInstance.get(allApiEndponts.getProfile);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Profile error:", error);
+
+      throw error;
+    }
+  }
 }
+
 export default AuthService;
