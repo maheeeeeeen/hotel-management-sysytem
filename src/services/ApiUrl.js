@@ -5,6 +5,7 @@ export const allApiEndponts = {
   signUp: `${environment.baseUrl}signup`,
   login: `${environment.baseUrl}login`,
   getProfile: `${environment.baseUrl}profile`,
+  updateUser: `${environment.baseUrl}update`,
 
   //-------------------- ROOM ROUTES -------------------
 

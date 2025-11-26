@@ -7,7 +7,7 @@ import { SignUpForm } from './Pages/SignUp';
 import ContactUs from './Pages/Guest/ContactUs';
 import AboutUs from './Pages/Guest/AboutUs';
 import Rooms from './Pages/Guest/Rooms';
-import Profile from './Pages/Profile';
+import Profile from './Pages/Profile/Profile';
 
 function App() {
 
