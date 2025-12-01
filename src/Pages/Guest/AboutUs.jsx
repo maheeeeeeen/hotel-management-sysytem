@@ -1,3 +1,4 @@
+import { FaQuoteLeft } from "react-icons/fa";
 import React from "react";
 import TopHeroSection from "../../Components/TopHeroSection";
 import { Heading1, Heading2, ParagraphText } from "../../Components/Typography";
@@ -5,71 +6,72 @@ import img1 from '../../assets/hotelSlider1.jpg'
 import img2 from '../../assets/hotelSlider2.jpg'
 import img3 from '../../assets/hotelSlider3.jpg'
 export default function AboutUs() {
-    const img = [
-        img1,
-        img2, 
-        img3,
-        img1, 
-        img2, 
-        img3
-    ]
+  const img = [
+    img1,
+    img2,
+    img3,
+    img1,
+    img2,
+    img3
+  ]
   return (
-  <div>
-  <TopHeroSection>
-    <Heading1 text="About Us" />
-  </TopHeroSection>
+    <div>
+      <TopHeroSection>
+        <Heading1 text="About Us" />
+      </TopHeroSection>
 
-  <div className="max-w-6xl grid md:grid-cols-2 gap-12 px-6 lg:px-12 py-16 items-start mx-auto">
+      <div className="mt-30 mb-10">
 
-  {/* LEFT SIDE TEXT */}
-  <div className="space-y-4 ">
-    <Heading2 text="Welcome to Luxury Stay Hospitality" />
+        <h1 className="text-4xl text-center" >WELCOME TO LUXURY STAR HOTEL</h1>
 
-    <ParagraphText
-      text="Built in 1910 during the Belle Epoque period, this hotel is located in the center of Paris, with easy access to the city's tourist attractions. It offers tastefully decorated rooms."
-    />
-  </div>
+      </div>
 
-  {/* RIGHT SIDE LIST */}
-  <div>
-    <ul className="space-y-3">
-      {[
-        "20% Off On Accommodation",
-        "Complimentary Daily Breakfast",
-        "3 Pcs Laundry Per Day",
-        "Free Wifi",
-      ].map((item, index) => (
-        <li
-          key={index}
-          className="flex items-start gap-3 text-neutral-700 text-lg"
-        >
-          <span className="h-3 w-3 mt-2 bg-black rounded-full"></span>
-          {item}
-        </li>
-      ))}
-    </ul>
-  </div>
+      {/* RIGHT SIDE IMAGES */}
+      <div className="max-w-6xl mx-auto mb-8">
+        <div className="grid grid-cols-3 gap-4">
+          {img.map((m, i) => (
+            <img
+              key={i}
+              src={m}
+              alt=""
+              className="rounded-xl object-cover h-40 w-full hover:scale-105 transition duration-300"
+            />
+          ))}
 
-</div>
+        </div>
+      </div>
 
- {/* RIGHT SIDE IMAGES */}
-    <div className="max-w-6xl mx-auto mb-8">
-      <div className="grid grid-cols-3 gap-4">
-       {img.map((m, i) => (
-    <img
-      key={i}
-      src={m}
-      alt=""
-      className="rounded-xl object-cover h-40 w-full hover:scale-105 transition duration-300"
-    />
-  ))}
-       
+      {/* quotes */}
+      <div className=" max-w-7xl mx-auto mt-20" >
+        <p className="text-xl max-w-4xl mx-auto text-center mb-20" >
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad quibusdam omnis soluta doloremque asperiores, hic est culpa mollitia nihil, natus obcaecati. Cupiditate blanditiis esse quaerat unde voluptates consectetur at tempora ullam, dolore, eligendi, facilis hic. Repudiandae consequatur, ab ducimus voluptates omnis inventore cumque voluptate fuga laboriosam amet ut, illo mollitia.
+        </p>
+
+        <div className="flex justify-evenly" >
+        <div>
+          <ol>
+            <li>pointt h yeeee</li>
+            <li>pointt h yeeee</li>
+            <li>pointt h yeeee</li>
+            <li>pointt h yeeee</li>
+          </ol>
+        </div>
+
+        <div>
+          <ol>
+            <li>pointt h yeeee</li>
+            <li>pointt h yeeee</li>
+            <li>pointt h yeeee</li>
+            <li>pointt h yeeee</li>
+          </ol>
+        </div>
+        </div>
+
       </div>
     </div>
-</div>
+
 
   );
 }
 
 
-   

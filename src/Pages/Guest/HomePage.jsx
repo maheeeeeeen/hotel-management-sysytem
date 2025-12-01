@@ -105,18 +105,6 @@ export default function HomePage() {
       </div>
 
 
-      {/* 2nd component */}
-      {/* <div className='w-full mt-10 mb-10'>
-        <div className='w-full flex' >
-          <div>huidhuiwedhodhow3yh</div>
-          <div className='flex' >
-            <div className='w-90 h-90'><img src={slider1} alt="" /></div>
-            <div className='w-90 h-90'><img src={slider2} alt="" /></div>
-          </div>
-        </div>
-      </div> */}
-
-
       {/* 3rd component */}
       <div className="max-w-6xl mx-auto mt-20 text-center ">
         <h1 className='text-4xl' >OUR SERVICES</h1>
@@ -131,6 +119,8 @@ export default function HomePage() {
 
 
       <div>
+        <h1 className='text-4xl text-center' >GALLERY</h1>
+        <p className='text-center mt-3'>this is our gallery</p>
         <GridLayout />
       </div>
 
@@ -139,7 +129,7 @@ export default function HomePage() {
       {/* 4rth component */}
       <div>
         <h1 className='text-4xl text-center' >TESTIMONIALS</h1>
-        <p>these are our testimonials</p>
+        <p className='text-center mt-3'>these are our testimonials</p>
         <Testimonials />
       </div>
 
