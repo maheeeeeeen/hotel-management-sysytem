@@ -1,4 +1,4 @@
-import { FaQuoteLeft } from "react-icons/fa";
+import { TiTick } from "react-icons/ti";
 import React from "react";
 import TopHeroSection from "../../Components/TopHeroSection";
 import { Heading1, Heading2, ParagraphText } from "../../Components/Typography";
@@ -23,6 +23,7 @@ export default function AboutUs() {
       <div className="mt-30 mb-10">
 
         <h1 className="text-4xl text-center" >WELCOME TO LUXURY STAR HOTEL</h1>
+        <p className="text-center" >this is the about us page</p>
 
       </div>
 
@@ -47,23 +48,25 @@ export default function AboutUs() {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad quibusdam omnis soluta doloremque asperiores, hic est culpa mollitia nihil, natus obcaecati. Cupiditate blanditiis esse quaerat unde voluptates consectetur at tempora ullam, dolore, eligendi, facilis hic. Repudiandae consequatur, ab ducimus voluptates omnis inventore cumque voluptate fuga laboriosam amet ut, illo mollitia.
         </p>
 
-        <div className="flex justify-evenly" >
+        <div className="flex justify-evenly mb-10" >
         <div>
-          <ol>
-            <li>pointt h yeeee</li>
-            <li>pointt h yeeee</li>
-            <li>pointt h yeeee</li>
-            <li>pointt h yeeee</li>
-          </ol>
+          <ul style={{listStyleType:'disc'}}>
+           <li>this is the point</li>
+           <li>this is the point</li>
+           <li>this is the point</li>
+           <li>this is the point</li>
+           <li>this is the point</li>
+          </ul>
         </div>
 
         <div>
-          <ol>
-            <li>pointt h yeeee</li>
-            <li>pointt h yeeee</li>
-            <li>pointt h yeeee</li>
-            <li>pointt h yeeee</li>
-          </ol>
+          <ul style={{listStyleType:'disc'}}>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          </ul>
         </div>
         </div>
 

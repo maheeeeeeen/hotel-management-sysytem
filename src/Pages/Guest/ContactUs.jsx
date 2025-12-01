@@ -22,7 +22,22 @@ export default function ContactUs() {
           <p className="text-neutral-600 leading-relaxed">
             Feel free to reach out to us for any questions or feedback. 
             We are always here to help and guide you with the best support possible.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia possimus sapiente quas vel inventore officiis nesciunt minima doloremque voluptas labore.
           </p>
+  
+          <div className="ms-5 mt-5" >
+        
+        <div>
+          <ul style={{listStyleType:'disc'}}>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          <li>this is the point</li>
+          </ul>
+        </div>
+        </div>
+
         </div>
 
         {/* RIGHT SECTION */}
