@@ -3,51 +3,67 @@ import React from "react";
 
 import Button from "./Button";
 import { Heading1, Heading2 } from "./Typography";
-export function RoomCard({ img, title, ameneties, price, space, type }) {
+import { Link } from "react-router-dom";
+export function RoomCard({ img, title, ameneties, price, space , link}) {
   const statusColors = {
     available: "bg-green-500",
     occupied: "bg-red-500",
     cleaning: "bg-yellow-400",
     maintenance: "bg-gray-500",
   };
+
   return (
-    <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mx-auto">
-      {/* Image */}
-      <div className="relative">
-        <img
-          src={img}
-          alt="Hotel"
-          className="w-full h-48 sm:h-56 md:h-64 lg:h-48 xl:h-56 object-cover"
-        />
-        <span
-          className={`absolute top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full ${
-            statusColors[space] || "bg-gray-400"
-          }`}
-        >
-          {space.charAt(0).toUpperCase() + space.slice(1)}
-        </span>
+  <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mx-auto flex flex-col justify-between">
+  {/* Image */}
+  <div className="relative">
+    <img
+      src={img}
+      alt="Hotel"
+      className="w-full h-48 sm:h-56 md:h-64 lg:h-48 xl:h-56 object-cover"
+    />
+    <span
+      className={`absolute top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full ${
+        statusColors[space] || "bg-gray-400"
+      }`}
+    >
+      {space.charAt(0).toUpperCase() + space.slice(1)}
+    </span>
+  </div>
+
+  {/* Content */}
+  <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
+    <div>
+      <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
+        {title} Room
+      </h2>
+
+      {/* Amenities badges */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {ameneties?.map((item, index) => (
+          <span
+            key={index}
+            className="bg-blue-100 text-blue-800 text-xs sm:text-sm px-2 py-1 rounded-full"
+          >
+            {item}
+          </span>
+        ))}
       </div>
 
-      {/* Content */}
-      <div className="p-5 sm:p-6">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-          {title} Room
-        </h2>
-       
-        <p className="text-gray-600 text-sm sm:text-base mb-4">
-          <span className="font-bold">Ameneties: </span> {ameneties}
-        </p>
-        <p className="`absolute  w-20 text-center top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full bg-blue-300">
-          {type}
-        </p>
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
-          <p className="text-lg sm:text-xl font-semibold text-gray-800">
-            Rs. {price}
-          </p>
-          <Button text="View details" />
-        </div>
-      </div>
+     
     </div>
+
+    {/* Price & Button pinned to bottom */}
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mt-4">
+      <p className="text-lg sm:text-xl font-semibold text-gray-800">
+        Rs. {price}
+      </p>
+      <Link to={link}>
+      <Button text="View details" />
+      </Link>
+    </div>
+  </div>
+</div>
+
   );
 }
 

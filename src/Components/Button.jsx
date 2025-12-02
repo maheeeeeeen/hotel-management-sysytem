@@ -10,18 +10,23 @@ const Button = ({text , onclick}) => {
 }
 
 const StyledWrapper = styled.div`
+  width: 100%;
+  
   .button {
-    display: inline-block;
-    padding: 5px 16px;
+    display: block;
+    width: 100%;
+    padding: 6px 24px;
     border: 1px solid #4f4f4f;
     border-radius: 4px;
     transition: all 0.2s ease-in;
     position: relative;
     overflow: hidden;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
     color: black;
     z-index: 1;
+    text-align: center;
   }
 
   .button:before {
@@ -70,5 +75,4 @@ const StyledWrapper = styled.div`
     background-color: black;
     transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
   }`;
-
 export default Button;

@@ -3,56 +3,10 @@ import TopHeroSection from "../../Components/TopHeroSection";
 import { Heading1 } from "../../Components/Typography";
 import { RoomCard } from "../../Components/Cards";
 
-import img1 from "../../assets/hotelSlider1.jpg";
-import img2 from "../../assets/hotelSlider2.jpg";
-import img3 from "../../assets/hotelSlider3.jpg";
 import { RoomService } from "../../services/RoomService";
 
 export default function Rooms() {
-  const data = [
-    {
-      title: "Room 1",
-      img: img1,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mauris, bibendum eget sapien ac, ultrices rhoncus ipsum.",
-      price: "Rs 30000",
-      space: "available",
-    },
-    {
-      title: "Room 2",
-      img: img2,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mauris, bibendum eget sapien ac, ultrices rhoncus ipsum.",
-      price: "Rs 30000",
-      space: "occupied",
-    },
-    {
-      title: "Room 3",
-      img: img3,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mauris, bibendum eget sapien ac, ultrices rhoncus ipsum.",
-      price: "Rs 30000",
-      space: "available",
-    },
-    {
-      title: "Room 3",
-      img: img2,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mauris, bibendum eget sapien ac, ultrices rhoncus ipsum.",
-      price: "Rs 30000",
-      space: "maintenance",
-    },
-    {
-      title: "Room 3",
-      img: img3,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mauris, bibendum eget sapien ac, ultrices rhoncus ipsum.",
-      price: "Rs 30000",
-      space: "available",
-    },
-    {
-      title: "Room 3",
-      img: img1,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mauris, bibendum eget sapien ac, ultrices rhoncus ipsum.",
-      price: "Rs 30000",
-      space: "occupied",
-    },
-  ];
+ 
   const [rooms , setRooms]= useState([])
   const service = new RoomService();
 
@@ -84,11 +38,11 @@ export default function Rooms() {
             
             <RoomCard
               title={r.type}
-              type={r.roomNumber}
-              ameneties={r.amenities.join(", ")} 
-              img={r.ImageUrl}
+              ameneties={r.amenities} 
+              img={r.ImageUrl[0]}
               space={r.status}
               price={r.price}
+              link={`/room/${r._id}`}
             />
           ))}
         </div>
