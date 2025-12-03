@@ -10,6 +10,9 @@ import Rooms from './Pages/Guest/Rooms';
 import Profile from './Pages/Profile/Profile';
 import RoomDetails from './Pages/Guest/RoomDetails';
 import ConfirmationBookingPage from './Pages/Guest/ConfirmationBookingPage';
+import { SidebarDemo } from './Components/SideBar';
+import AdminDashboard from './Pages/admin/Dashboard';
+import AdminRooms from './Pages/admin/AdminRooms';
 
 function App() {
 
@@ -27,6 +30,14 @@ function App() {
         <Route path="/room/:id" element={<RoomDetails />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/booking/:id" element={<ConfirmationBookingPage />} />
+      </Route>
+
+      {/* Admin dashboard Routes */}
+      <Route element={<SidebarDemo/>}>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/adminrooms" element={<AdminRooms />} />
+
+
       </Route>
     </Routes>
 

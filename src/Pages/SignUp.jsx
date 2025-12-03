@@ -14,6 +14,7 @@ export function SignUpForm() {
     name: "",
     email: "",
     password: "",
+    number:"",
     role:""
   });
   function handleChange(e) {
@@ -63,6 +64,15 @@ export function SignUpForm() {
             name="password"
             placeholder="••••••••"
             type="password"
+            onChange={handleChange}
+          />
+        </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+          <Label htmlFor="password">Numer</Label>
+          <Input
+            name="number"
+            placeholder="Enter your number"
+            type="number"
             onChange={handleChange}
           />
         </LabelInputContainer>

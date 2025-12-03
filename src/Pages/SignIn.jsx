@@ -17,20 +17,26 @@ export function SignInForm() {
     setformdata({ ...formdata, [e.target.name]: e.target.value });
   }
   async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      const res = await service.login(formdata);
-      console.log(res);
-      localStorage.setItem("token", res.token);
-      toast("login Successful!");
+  e.preventDefault();
+  try {
+    const res = await service.login(formdata);
+    console.log(res.existingUser);
 
+    localStorage.setItem("token", res.token);
+    toast("Login Successful!");
+
+    const role = res.existingUser.role; 
+
+    if (role === "guest") {
       navigate("/");
-    } catch (error) {
-      
-       toast(error.response?.data?.message || "Something went wrong");
-     
+    } else {
+      navigate("/admin");
     }
+  } catch (error) {
+    toast(error.message || "Something went wrong");
   }
+}
+
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-white px-6 py-8 shadow-lg">
