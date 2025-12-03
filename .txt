@@ -1,0 +1,52 @@
+<div className="">
+        <Swiper
+          pagination={{ dynamicBullets: true }}
+          modules={[Pagination]}
+          className="w-full"
+        >
+          {/* SLIDE 1 */}
+          <SwiperSlide className="relative">
+            <img src={slider1} className="w-full h-[80vh] object-cover" />
+
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <div className=" bg-opacity-90 p-6 md:p-10 rounded-lg w-[90%] md:w-1/2 text-center">
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">"Your Hotel, Effortlessly Managed"</h1>
+                <p className="text-sm md:text-lg mt-4">
+                  Streamline every part of your hotel operations with our intelligent management system.
+                  From bookings to billing, enjoy a seamless experience that saves time, reduces errors, and boosts productivity.
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+
+          {/* SLIDE 2 */}
+          <SwiperSlide className="relative">
+            <img src={slider2} className="w-full h-[80vh] object-cover" />
+
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <div className=" bg-opacity-90 p-6 md:p-10 rounded-lg w-[90%] md:w-1/2 text-center text-white">
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">"Smart Tools for Smarter Hospitality"</h1>
+                <p className="text-sm md:text-lg mt-4">
+                  Empower your staff with powerful tools designed for speed, accuracy, and convenience.
+                  Automate daily tasks, track real-time activity, and deliver a world-class experience to every guest.
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+
+          {/* SLIDE 3 */}
+          <SwiperSlide className="relative">
+            <img src={slider3} className="w-full h-[80vh] object-cover" />
+
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <div className=" bg-opacity-90 p-6 md:p-10 rounded-lg w-[90%] md:w-1/2 text-center">
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">A Complete Solution for Modern Hotels</h1>
+                <p className="text-sm md:text-lg mt-4">
+                  Manage rooms, guests, reservations, staff, and payments—all from one intuitive dashboard.
+                  Our hotel management system adapts to your needs and helps your business grow with confidence.
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
