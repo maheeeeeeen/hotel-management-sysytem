@@ -5,6 +5,7 @@ import { cn } from "../lib/utils";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/AuthService";
 import { toast, ToastContainer } from "react-toastify";
+import Helper from "../helper/Helper";
 
 export function SignInForm() {
   const service = new AuthService();
@@ -16,16 +17,20 @@ export function SignInForm() {
   function handleChange(e) {
     setformdata({ ...formdata, [e.target.name]: e.target.value });
   }
+  const helper = new Helper();
+
   async function handleSubmit(e) {
   e.preventDefault();
   try {
     const res = await service.login(formdata);
     console.log(res.existingUser);
-
-    localStorage.setItem("token", res.token);
+    const token = res.token;
+    const role = res.existingUser.role;
+    
+    // Call setToken once with both parameters
+    helper.setToken(token, role);
+    
     toast("Login Successful!");
-
-    const role = res.existingUser.role; 
 
     if (role === "guest") {
       navigate("/");
@@ -36,7 +41,6 @@ export function SignInForm() {
     toast(error.message || "Something went wrong");
   }
 }
-
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-white px-6 py-8 shadow-lg">
