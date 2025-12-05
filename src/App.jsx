@@ -14,10 +14,11 @@ import { SidebarDemo } from "./Components/SideBar";
 import AdminDashboard from "./Pages/admin/Dashboard";
 import AdminRooms from "./Pages/admin/rooms/AdminRooms";
 import ProtectedRoute from "./lib/ProtectedRoute";
-import AdminBookings from "./Pages/admin/AdminBooking";
 import Feedback from "./Pages/admin/Feedback";
 import Users from "./Pages/admin/User";
 import AddRoomForm from "./Pages/admin/rooms/AddRoom";
+import ViewBooking from "./Pages/admin/bookings/ViewBooking";
+import AdminBookings from "./Pages/admin/bookings/AdminBooking";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/admin/rooms" element={<AdminRooms />} />
           <Route path="/admin/addroom" element={<AddRoomForm />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
+          <Route path="/admin/view/:id" element={<ViewBooking />} />
           <Route path="/admin/feedbacks" element={<Feedback />} />
           <Route path="/admin/users" element={<Users />} />
         </Route>

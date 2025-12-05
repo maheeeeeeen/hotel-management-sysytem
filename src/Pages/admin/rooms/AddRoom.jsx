@@ -106,7 +106,7 @@ export default function AddRoomForm({ onRoomAdded }) {
               Room Number
             </label>
             <Input
-            name="roomNumber"
+              name="roomNumber"
               register={register}
               placeholder="Enter Room Number"
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300"
@@ -123,7 +123,7 @@ export default function AddRoomForm({ onRoomAdded }) {
               Description
             </label>
             <Input
-            name="description"
+              name="description"
               placeholder="Enter  Description"
               type="text"
               register={register}
@@ -142,7 +142,7 @@ export default function AddRoomForm({ onRoomAdded }) {
           <div>
             <label className="block text-sm font-medium mb-1">Floor</label>
             <Input
-            name="floor"
+              name="floor"
               placeholder="Enter floor number"
               type="number"
               register={register}
@@ -156,7 +156,7 @@ export default function AddRoomForm({ onRoomAdded }) {
           <div>
             <label className="block text-sm font-medium mb-1">Max Guests</label>
             <Input
-            name="maxGuests"
+              name="maxGuests"
               type="number"
               placeholder="Enter Max Guest"
               register={register}
@@ -173,7 +173,7 @@ export default function AddRoomForm({ onRoomAdded }) {
         <div>
           <label className="block text-sm font-medium mb-1">Meal Plan</label>
           <select
-          name="mealPlan"
+            name="mealPlan"
             register={register}
             className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white"
           >
@@ -192,7 +192,7 @@ export default function AddRoomForm({ onRoomAdded }) {
           <div>
             <label className="block text-sm font-medium mb-1">Room Type</label>
             <select
-            name="type"
+              name="type"
               register={register}
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white"
             >
@@ -207,7 +207,7 @@ export default function AddRoomForm({ onRoomAdded }) {
           <div>
             <label className="block text-sm font-medium mb-1">Status</label>
             <select
-            name="status"
+              name="status"
               register={register}
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white"
             >
@@ -230,11 +230,11 @@ export default function AddRoomForm({ onRoomAdded }) {
               $
             </span>
             <Input
-            name="price"
+              name="price"
               type="number"
               register={register}
               className="w-full pl-8 pr-3 py-2.5 rounded-lg border"
-               options={{ valueAsNumber: true }}
+              options={{ valueAsNumber: true }}
             />
             {errors.price && (
               <p className="text-red-500 text-sm">{errors.price.message}</p>
@@ -246,7 +246,7 @@ export default function AddRoomForm({ onRoomAdded }) {
         <div>
           <label className="block text-sm font-medium mb-1">Amenities</label>
           <Input
-          name="amenities"
+            name="amenities"
             register={register}
             placeholder="AC, TV, Wifi"
             className="w-full px-3 py-2.5 rounded-lg border border-gray-300"
@@ -263,13 +263,13 @@ export default function AddRoomForm({ onRoomAdded }) {
           </label>
 
           <div className="border-2 border-dashed p-4 rounded-lg bg-gray-50">
-           <input
-  type="file"
-  multiple
-  accept="image/*"
-  onChange={handleFileChange}
-  name="ImageUrl"
-/>
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleFileChange}
+              name="ImageUrl"
+            />
             {errors.ImageUrl && (
               <p className="text-red-500 text-sm">{errors.ImageUrl.message}</p>
             )}
@@ -303,9 +303,8 @@ export default function AddRoomForm({ onRoomAdded }) {
           <button
             type="submit"
             disabled={uploading}
-            className={`w-full py-3 rounded-lg font-medium ${
-              uploading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
-            } text-white`}
+            className={`w-full py-3 rounded-lg font-medium ${uploading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+              } text-white`}
           >
             {uploading ? "Uploading..." : "Add Room"}
           </button>

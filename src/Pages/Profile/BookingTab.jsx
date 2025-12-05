@@ -9,7 +9,7 @@ export default function BookingTab() {
   useEffect(() => {
     async function fetchBookings() {
       try {
-        const res = await bookingservice.getAllBookings();
+        const res = await bookingservice.getAllUserBookings();
         setBookings(res);
       } catch (err) {
         console.error(err);

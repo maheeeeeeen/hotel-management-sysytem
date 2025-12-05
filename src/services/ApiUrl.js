@@ -18,6 +18,7 @@ export const allApiEndponts = {
   // -------- BOOKING ROUTES ------------------------------
   addbooking: `${environment.baseUrl}createbooking`,
   getAllbookings: `${environment.baseUrl}bookings`,
+  getAllUserbookings: `${environment.baseUrl}userbooking`,
   getbookingByid: `${environment.baseUrl}booking`,
   cancelbookings:`${environment.baseUrl}cancelbooking`,
 
