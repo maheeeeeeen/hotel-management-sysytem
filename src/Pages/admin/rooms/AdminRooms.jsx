@@ -7,10 +7,10 @@ import { Heading2, ParagraphText } from "../../../Components/Typography";
 import Button from "../../../Components/Button";
 import { Link } from "react-router-dom";
 import { RoomService } from "../../../services/RoomService";
+import { Eye } from "lucide-react";
 
 export default function AdminRooms() {
   const [rooms, setRooms] = useState([]);
-  const [open , setOpen] = useState(false);
   const service = new RoomService();
 
   async function AllRooms() {
@@ -23,7 +23,16 @@ export default function AdminRooms() {
     }
   }
 
- 
+  async function handleDelete(id) {
+    try {
+      const res = await service.deleteRoom(id);
+      setRooms((prev) => prev.filter((r) => r._id !== id));
+
+      console.log("Deleted data", res);
+    } catch (error) {
+      console.log("Error deleting room");
+    }
+  }
 
   useEffect(() => {
     AllRooms();
@@ -50,7 +59,7 @@ export default function AdminRooms() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                   S.no
                 </th>
-                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                   Image
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
@@ -72,12 +81,17 @@ export default function AdminRooms() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {rooms.map((room, index) => (
-                <tr key={room.id}>
+                <tr key={room._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {index + 1}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <img src={room.ImageUrl[0]} className="w-12 h-12 " alt="" srcset="" />
+                    <img
+                      src={room.ImageUrl[0]}
+                      className="w-12 h-12 "
+                      alt=""
+                      srcset=""
+                    />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {room.roomNumber}
@@ -101,19 +115,23 @@ export default function AdminRooms() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     ${room.price.toLocaleString()}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex  items-center gap-3">
+                    <Link to={`/admin/room/${room._id}`}>
+                      <button className="text-blue-600 hover:text-blue-900 mr-3">
+                        <Eye className="h-5 w-5" />
+                      </button>
+                    </Link>
                     <button
-                      onClick={() => handleOpenEdit(room)}
-                      className="text-blue-600 hover:text-blue-900 mr-3"
-                    >
-                      <PencilIcon className="h-5 w-5" />
-                    </button>
-                    <button
-                      // onClick={() => handleDelete(room.id)}
+                      onClick={() => handleDelete(room._id)}
                       className="text-red-600 hover:text-red-900"
                     >
                       <TrashIcon className="h-5 w-5" />
                     </button>
+                    <Link to={`/admin/editroom/${room._id}`}>
+                      <button className="text-green-600 hover:text-green-900 mr-3">
+                        <PencilIcon className="h-5 w-5" />
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

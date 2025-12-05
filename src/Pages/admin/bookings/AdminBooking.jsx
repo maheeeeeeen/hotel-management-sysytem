@@ -5,7 +5,7 @@ import { Dialog } from "@headlessui/react";
 import { Heading2, ParagraphText } from "../../../Components/Typography";
 import { bookingService } from "../../../services/BookingService";
 import { useEffect } from "react";
-import { PencilIcon, TrashIcon } from "lucide-react";
+import { Eye, PencilIcon, TrashIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function AdminBookings() {
@@ -73,16 +73,16 @@ export default function AdminBookings() {
                 <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{b.guest.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{b.room.type}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{b.checkInDate}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{new Date(b.checkInDate).toLocaleDateString('en-US', {  year: 'numeric', month: 'long', day: 'numeric' })}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{b.checkOutDate}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{b.status}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <Link to={`/admin/view/${b._id}`}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex justify-center items-center gap-3 ">
+                  <Link to={`/admin/booking/${b._id}`}>
                     <button
 
                       className="text-blue-600 hover:text-blue-900 mr-3"
                     >
-                      <PencilIcon className="h-5 w-5" />
+                      <Eye className="h-5 w-5" />
                     </button>
                   </Link>
                   <button
@@ -90,6 +90,12 @@ export default function AdminBookings() {
                     className="text-red-600 hover:text-red-900"
                   >
                     <TrashIcon className="h-5 w-5" />
+                  </button>
+                  <button
+                    // onClick={() => handleDelete(room.id)}
+                    className="text-green-600 hover:text-green-900"
+                  >
+                    <PencilIcon className="h-5 w-5" />
                   </button>
                 </td>
 

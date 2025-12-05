@@ -19,6 +19,7 @@ import Users from "./Pages/admin/User";
 import AddRoomForm from "./Pages/admin/rooms/AddRoom";
 import ViewBooking from "./Pages/admin/bookings/ViewBooking";
 import AdminBookings from "./Pages/admin/bookings/AdminBooking";
+import ViewRoom from "./Pages/admin/rooms/ViewRoom";
 
 function App() {
   return (
@@ -48,9 +49,11 @@ function App() {
         >
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/rooms" element={<AdminRooms />} />
+          <Route path="/admin/room/:id" element={<ViewRoom />} />
           <Route path="/admin/addroom" element={<AddRoomForm />} />
+          <Route path="/admin/editroom/:id" element={<AddRoomForm />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
-          <Route path="/admin/view/:id" element={<ViewBooking />} />
+          <Route path="/admin/booking/:id" element={<ViewBooking />} />
           <Route path="/admin/feedbacks" element={<Feedback />} />
           <Route path="/admin/users" element={<Users />} />
         </Route>

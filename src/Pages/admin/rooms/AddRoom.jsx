@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "../../../Components/InputFields";
 import { RoomService } from "../../../services/RoomService";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { addRoomSchema } from "../../../services/validation/zodSchema";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
-export default function AddRoomForm({ onRoomAdded }) {
+export default function AddRoomForm() {
+  const { id } = useParams();
   const {
     register,
     control,
@@ -24,7 +27,6 @@ export default function AddRoomForm({ onRoomAdded }) {
       price: 0,
       status: "available",
       amenities: "",
-
     },
     mode: "onChange",
   });
@@ -32,8 +34,38 @@ export default function AddRoomForm({ onRoomAdded }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [uploading, setUploading] = useState(false);
-
+  const navigate = useNavigate();
   const service = new RoomService();
+
+  async function getRoomByid(id) {
+    try {
+      const res = await service.getRoomById(id);
+      console.log(res);
+      reset({
+        roomNumber: res.roomNumber,
+        description: res.description,
+        floor: res.floor,
+        maxGuests: res.maxGuests,
+        mealPlan: res.mealPlan,
+        type: res.type,
+        price: res.price,
+        status: res.status,
+        amenities: res.amenities,
+      });
+      if (res.ImageUrl && res.ImageUrl.length > 0) {
+        setPreviewUrls(
+          res.ImageUrl.map((img) => (img.startsWith("http") ? img : "no image"))
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching room", error);
+    } finally {
+    }
+  }
+
+  useEffect(() => {
+    getRoomByid(id);
+  }, [id, reset]);
 
   // Handle multiple image input
   const handleFileChange = (e) => {
@@ -51,39 +83,59 @@ export default function AddRoomForm({ onRoomAdded }) {
     setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const onSubmit = async (data) => {
-    setUploading(true);
-
+  async function onSubmit(data) {
     try {
-      const formData = new FormData();
+      if (!id) {
+        const formData = new FormData();
 
-      // Append regular fields
-      Object.entries(data).forEach(([key, value]) => {
-        if (key === "amenities") {
-          formData.append("amenities", JSON.stringify(value.split(",")));
-        } else {
-          formData.append(key, value);
-        }
-      });
+        // Append regular fields
+        Object.entries(data).forEach(([key, value]) => {
+          if (key === "amenities") {
+            formData.append("amenities", JSON.stringify(value.split(",")));
+          } else {
+            formData.append(key, value);
+          }
+        });
 
-      // Append files
-      selectedFiles.forEach((file) => {
-        formData.append("ImageUrl", file);
-      });
+        // Append files
+        selectedFiles.forEach((file) => {
+          formData.append("ImageUrl", file);
+        });
 
-      const res = await service.createRoom(formData);
-      onRoomAdded(res);
+        const res = await service.createRoom(formData);
 
-      // Reset form + images
-      reset();
-      setSelectedFiles([]);
-      setPreviewUrls([]);
+        toast("Room Added");
+        navigate("/admin/rooms");
+        // Reset form + images
+        reset();
+        setSelectedFiles([]);
+        setPreviewUrls([]);
+      } else {
+        const formData = new FormData();
+
+        // Append normal fields
+        Object.entries(data).forEach(([key, value]) => {
+          if (key === "amenities") {
+            formData.append("amenities", JSON.stringify(value.split(",")));
+          } else {
+            formData.append(key, value);
+          }
+        });
+
+        // Append NEW uploaded images only
+        selectedFiles.forEach((file) => {
+          formData.append("ImageUrl", file);
+        });
+
+        const res = await service.updateRoom(id, formData);
+
+        toast("Room Updated");
+        navigate("/admin/rooms");
+      }
     } catch (error) {
-      console.log("Error adding room:", error);
-    } finally {
-      setUploading(false);
+      console.log("errorrrrrr", error);
     }
-  };
+  }
 
   return (
     <form
@@ -106,10 +158,12 @@ export default function AddRoomForm({ onRoomAdded }) {
               Room Number
             </label>
             <Input
+              type="number"
               name="roomNumber"
               register={register}
               placeholder="Enter Room Number"
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300"
+              options={{ valueAsNumber: true }}
             />
             {errors.roomNumber && (
               <p className="text-red-500 text-sm">
@@ -147,6 +201,7 @@ export default function AddRoomForm({ onRoomAdded }) {
               type="number"
               register={register}
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300"
+              options={{ valueAsNumber: true }}
             />
             {errors.floor && (
               <p className="text-red-500 text-sm">{errors.floor.message}</p>
@@ -161,6 +216,7 @@ export default function AddRoomForm({ onRoomAdded }) {
               placeholder="Enter Max Guest"
               register={register}
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300"
+              options={{ valueAsNumber: true }}
             />
 
             {errors.maxGuests && (
@@ -303,11 +359,13 @@ export default function AddRoomForm({ onRoomAdded }) {
           <button
             type="submit"
             disabled={uploading}
-            className={`w-full py-3 rounded-lg font-medium ${uploading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
-              } text-white`}
+            className={`w-full py-3 rounded-lg font-medium ${
+              uploading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+            } text-white`}
           >
             {uploading ? "Uploading..." : "Add Room"}
           </button>
+          <ToastContainer />
         </div>
       </div>
     </form>
