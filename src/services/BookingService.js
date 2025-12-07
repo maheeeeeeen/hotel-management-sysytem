@@ -5,7 +5,9 @@ import axiosInstance from "./interceptor/interceptor";
 export class bookingService {
   async getAllUserBookings() {
     try {
-      const response = await axiosInstance.get(allApiEndponts.getAllUserbookings);
+      const response = await axiosInstance.get(
+        allApiEndponts.getAllUserbookings
+      );
       return response.data;
     } catch (error) {
       console.error("Get booking error:", error);
@@ -51,4 +53,25 @@ export class bookingService {
       throw error;
     }
   }
+
+ async cancelBooking(id, data) {
+  try {
+    const response = await axiosInstance.delete(
+      `${allApiEndponts.cancelbookings}/${id}`,
+      {
+        data: data, // <-- DELETE body MUST be inside data:
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Cancelling booking error:", error);
+    throw error;
+  }
+}
+
 }

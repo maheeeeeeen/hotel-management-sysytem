@@ -8,16 +8,19 @@ import Button from "../../../Components/Button";
 import { Link } from "react-router-dom";
 import { RoomService } from "../../../services/RoomService";
 import { Eye } from "lucide-react";
+import Loader from "../../../Components/Loader";
 
 export default function AdminRooms() {
   const [rooms, setRooms] = useState([]);
   const service = new RoomService();
-
+ const [loading, setLoading] = useState(true);
   async function AllRooms() {
     try {
       const res = await service.AllRooms();
       console.log(res);
       setRooms(res);
+         
+      setLoading(false)
     } catch (error) {
       console.log("Error fetching rooms", error);
     }
@@ -37,6 +40,13 @@ export default function AdminRooms() {
   useEffect(() => {
     AllRooms();
   }, []);
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center ">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-full">
       <div className="px-6 py-4  border-gray-200 flex items-center">

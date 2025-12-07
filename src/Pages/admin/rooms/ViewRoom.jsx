@@ -19,6 +19,7 @@ import {
 import { RoomService } from "../../../services/RoomService";
 import Button from "../../../Components/Button";
 import { Heading2 } from "../../../Components/Typography";
+import Loader from "../../../Components/Loader";
 
 // If you don't want to use Lucide icons, you can remove them and use text instead
 
@@ -49,29 +50,12 @@ export default function ViewRoom() {
     getRoomByid(id);
   }, [id]);
 
-  const nextImage = () => {
-    if (room?.ImageUrl?.length) {
-      setActiveImageIndex((prev) =>
-        prev === room.ImageUrl.length - 1 ? 0 : prev + 1
-      );
-    }
-  };
 
-  const prevImage = () => {
-    if (room?.ImageUrl?.length) {
-      setActiveImageIndex((prev) =>
-        prev === 0 ? room.ImageUrl.length - 1 : prev - 1
-      );
-    }
-  };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Loading room details...</p>
-        </div>
+      <div className="fixed inset-0 flex items-center justify-center ">
+        <Loader />
       </div>
     );
   }

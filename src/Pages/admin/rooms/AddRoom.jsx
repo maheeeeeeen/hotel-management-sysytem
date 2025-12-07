@@ -91,7 +91,9 @@ export default function AddRoomForm() {
         // Append regular fields
         Object.entries(data).forEach(([key, value]) => {
           if (key === "amenities") {
-            formData.append("amenities", JSON.stringify(value.split(",")));
+            value.split(",").forEach((item) => {
+              formData.append("amenities", item.trim());
+            });
           } else {
             formData.append(key, value);
           }
@@ -116,7 +118,9 @@ export default function AddRoomForm() {
         // Append normal fields
         Object.entries(data).forEach(([key, value]) => {
           if (key === "amenities") {
-            formData.append("amenities", JSON.stringify(value.split(",")));
+            value.split(",").forEach((item) => {
+              formData.append("amenities", item.trim());
+            });
           } else {
             formData.append(key, value);
           }
@@ -144,7 +148,9 @@ export default function AddRoomForm() {
     >
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Add New Room</h2>
+        <h2 className="text-2xl font-bold text-gray-800">
+          {!id ? " Add New Room" : "Edit Room"}
+        </h2>
         <p className="text-gray-500 text-sm mt-1">
           Fill in the room details below
         </p>
@@ -230,7 +236,7 @@ export default function AddRoomForm() {
           <label className="block text-sm font-medium mb-1">Meal Plan</label>
           <select
             name="mealPlan"
-            register={register}
+            {...register("mealPlan")}
             className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white"
           >
             <option value="room_only">Room Only</option>
@@ -249,7 +255,7 @@ export default function AddRoomForm() {
             <label className="block text-sm font-medium mb-1">Room Type</label>
             <select
               name="type"
-              register={register}
+              {...register("type")}
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white"
             >
               <option value="single">Single</option>
@@ -264,7 +270,7 @@ export default function AddRoomForm() {
             <label className="block text-sm font-medium mb-1">Status</label>
             <select
               name="status"
-              register={register}
+              {...register("status")}
               className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white"
             >
               <option value="available">Available</option>
@@ -363,7 +369,8 @@ export default function AddRoomForm() {
               uploading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
             } text-white`}
           >
-            {uploading ? "Uploading..." : "Add Room"}
+            {uploading ? "uploading..." : id ? "Edit Room" : "Add room"}
+            {/* {uploading ? "Uploading..." : "Add Room"} */}
           </button>
           <ToastContainer />
         </div>

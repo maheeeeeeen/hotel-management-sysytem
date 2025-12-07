@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { bookingService } from "../../../services/BookingService";
 import { Heading2 } from "../../../Components/Typography";
+import Loader from "../../../Components/Loader";
 
 export default function ViewBooking() {
   const { id } = useParams();
   const [booking, setBooking] = useState(null);
   const service = new bookingService();
-
+  const [loading , setLoading] = useState(true)
   async function getBookingbyid(id) {
     try {
       const res = await service.getBookingbyId(id);
       console.log(res);
       setBooking(res);
+      setLoading(false)
     } catch (error) {
       console.error("Error fetching Booking", error);
     }
@@ -22,7 +24,13 @@ export default function ViewBooking() {
     if (id) getBookingbyid(id);
   }, [id]);
 
-  if (!booking) return <p className="text-center mt-10">Loading booking details...</p>;
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center ">
+        <Loader />
+      </div>
+    );
+  }
 
   const {
     room,
@@ -34,9 +42,9 @@ export default function ViewBooking() {
   } = booking;
 
   return (
-    <div className="w-full mx-auto mt-8 p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl space-y-8">
+    <div className="w-full mx-auto  p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl space-y-8">
     <div className="flex items-center justify-between mb-2">
-      <Heading2 text="Booking Details" className="text-gray-800" />
+      <Heading2 text="Booking Details" />
       <span className={`px-4 py-2 rounded-full text-sm font-semibold ${status === "cancelled" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}>
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </span>

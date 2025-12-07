@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { BookingModal } from "../../Components/Modal";
 import Button from "../../Components/Button";
+import Loader from "../../Components/Loader";
 
 // If you don't want to use Lucide icons, you can remove them and use text instead
 
@@ -64,14 +65,10 @@ export default function RoomDetails() {
       );
     }
   };
-
-  if (loading) {
+if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Loading room details...</p>
-        </div>
+      <div className="fixed inset-0 flex items-center justify-center ">
+        <Loader />
       </div>
     );
   }
