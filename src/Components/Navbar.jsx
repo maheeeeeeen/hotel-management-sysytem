@@ -19,8 +19,8 @@ export function NavbarDemo() {
 
   // Check user login state on mount
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    setIsLoggedIn(!!user); // true if user exists
+    const role = localStorage.getItem("role");
+    setIsLoggedIn(!!role); // true if user exists
   }, []);
 
   const navItems = [

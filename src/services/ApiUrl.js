@@ -27,4 +27,10 @@ export const allApiEndponts = {
   addfeedback: `${environment.baseUrl}createFeedback`,
   getAllfeedback: `${environment.baseUrl}feedbacks`,
   deletefeedback: `${environment.baseUrl}feedback`,
+
+  //--------------- CONTACT INFO -----------------------------
+  getInfo: `${environment.baseUrl}info`,
+  addInfo: `${environment.baseUrl}addinfo`,
+  getinfobyid: `${environment.baseUrl}info`,
+  updateInfo: `${environment.baseUrl}info`,
 };

@@ -4,7 +4,7 @@ import React from "react";
 import Button from "./Button";
 import { Heading1, Heading2 } from "./Typography";
 import { Link } from "react-router-dom";
-export function RoomCard({ img, title, ameneties, price, space , link}) {
+export function RoomCard({ img, title, ameneties, price, space, link }) {
   const statusColors = {
     available: "bg-green-500",
     occupied: "bg-red-500",
@@ -13,57 +13,54 @@ export function RoomCard({ img, title, ameneties, price, space , link}) {
   };
 
   return (
-  <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mx-auto flex flex-col justify-between">
-  {/* Image */}
-  <div className="relative">
-    <img
-      src={img}
-      alt="Hotel"
-      className="w-full h-48 sm:h-56 md:h-64 lg:h-48 xl:h-56 object-cover"
-    />
-    <span
-      className={`absolute top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full ${
-        statusColors[space] || "bg-gray-400"
-      }`}
-    >
-      {space.charAt(0).toUpperCase() + space.slice(1)}
-    </span>
-  </div>
-
-  {/* Content */}
-  <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
-    <div>
-      <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-        {title} Room
-      </h2>
-
-      {/* Amenities badges */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {ameneties?.map((item, index) => (
-          <span
-            key={index}
-            className="bg-blue-100 text-blue-800 text-xs sm:text-sm px-2 py-1 rounded-full"
-          >
-            {item}
-          </span>
-        ))}
+    <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mx-auto flex flex-col justify-between">
+      {/* Image */}
+      <div className="relative">
+        <img
+          src={img}
+          alt="Hotel"
+          className="w-full h-48 sm:h-56 md:h-64 lg:h-48 xl:h-56 object-cover"
+        />
+        <span
+          className={`absolute top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full ${
+            statusColors[space] || "bg-gray-400"
+          }`}
+        >
+          {space.charAt(0).toUpperCase() + space.slice(1)}
+        </span>
       </div>
 
-     
-    </div>
+      {/* Content */}
+      <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
+        <div>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
+            {title} Room
+          </h2>
 
-    {/* Price & Button pinned to bottom */}
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mt-4">
-      <p className="text-lg sm:text-xl font-semibold text-gray-800">
-        Rs. {price}
-      </p>
-      <Link to={link}>
-      <Button text="View details" />
-      </Link>
-    </div>
-  </div>
-</div>
+          {/* Amenities badges */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {ameneties?.map((item, index) => (
+              <span
+                key={index}
+                className="bg-blue-100 text-blue-800 text-xs sm:text-sm px-2 py-1 rounded-full"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
 
+        {/* Price & Button pinned to bottom */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mt-4">
+          <p className="text-lg sm:text-xl font-semibold text-gray-800">
+            Rs. {price}
+          </p>
+          <Link to={link}>
+            <Button text="View details" />
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -81,6 +78,34 @@ export function GridCard({ icon, title, desc }) {
 
       {/* ameneties */}
       <p className="text-sm sm:text-base text-gray-700">{desc}</p>
+    </div>
+  );
+}
+export function InfoCard({ icon, title, description, contact, color }) {
+  return (
+    <div className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-neutral-100 hover:scale-[1.02]">
+      <div
+        className={`inline-flex p-3 rounded-lg bg-linear-to-br ${color} text-white mb-4`}
+      >
+        {icon}
+      </div>
+      <h3 className="font-bold text-neutral-800 mb-1">{title}</h3>
+      <p className="text-neutral-500 text-sm mb-2">{description}</p>
+      <p className="font-medium text-neutral-900 group-hover:text-blue-600 transition-colors">
+        {contact}
+      </p>
+    </div>
+  );
+}
+
+export function InfoCard2({ icon, title, description, color }) {
+  return (
+    <div className="flex items-start space-x-4">
+      <div className={`text-white p-3  rounded-lg bg-linear-to-br ${color}`}>{icon}</div>
+      <div>
+        <h3 className="font-semibold text-neutral-800">{title}</h3>
+        <p className="text-neutral-600">{description}</p>
+      </div>
     </div>
   );
 }

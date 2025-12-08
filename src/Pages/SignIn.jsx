@@ -1,46 +1,59 @@
 import React, { useState } from "react";
-import { Label } from "../Components/ui/LabelUi";
-import { Input } from "../Components/ui/InputUI.";
+
 import { cn } from "../lib/utils";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/AuthService";
 import { toast, ToastContainer } from "react-toastify";
 import Helper from "../helper/Helper";
+import { Input } from "../Components/InputFields";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { logInSchema } from "../services/validation/zodSchema";
 
 export function SignInForm() {
   const service = new AuthService();
-  const [formdata, setformdata] = useState({
-    email: "",
-    password: "",
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(logInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onChange",
   });
+
   const navigate = useNavigate();
-  function handleChange(e) {
-    setformdata({ ...formdata, [e.target.name]: e.target.value });
-  }
+
   const helper = new Helper();
 
-  async function handleSubmit(e) {
-  e.preventDefault();
-  try {
-    const res = await service.login(formdata);
-    console.log(res.existingUser);
-    const token = res.token;
-    const role = res.existingUser.role;
-    
-    // Call setToken once with both parameters
-    helper.setToken(token, role);
-    
-    toast("Login Successful!");
+  async function submit() {
+    try {
+              const formdata = new FormData();
 
-    if (role === "guest") {
-      navigate("/");
-    } else {
-      navigate("/admin");
+      const res = await service.login(formdata);
+      console.log(res.existingUser);
+      const token = res.token;
+      const role = res.existingUser.role;
+
+      // Call setToken once with both parameters
+      helper.setToken(token, role);
+
+      toast("Login Successful!");
+
+      if (role === "guest") {
+        navigate("/");
+      } else {
+        navigate("/admin");
+      }
+    } catch (error) {
+      toast(error.message || "Something went wrong");
     }
-  } catch (error) {
-    toast(error.message || "Something went wrong");
   }
-}
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-white px-6 py-8 shadow-lg">
@@ -52,35 +65,33 @@ export function SignInForm() {
         Sign in here to get access to your account
       </p>
 
-      <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
-        <LabelInputContainer>
-          <Label htmlFor="email">Email Address</Label>
-          <Input
-            onChange={handleChange}
-            name="email"
-            placeholder="your@email.com"
-            type="email"
-            className="h-11 rounded-md border-gray-300 text-sm"
-          />
-        </LabelInputContainer>
-
-        <LabelInputContainer>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            onChange={handleChange}
-            name="password"
-            placeholder="••••••••"
-            type="password"
-            className="h-11 rounded-md border-gray-300 text-sm"
-          />
-        </LabelInputContainer>
+      <form className="mt-8 space-y-5" onSubmit={handleSubmit(submit)}>
+        <label htmlFor="email">Email Address</label>
+        <Input
+          register={register}
+          name="email"
+          placeholder="your@email.com"
+          type="email"
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message}</p>
+        )}
+        <label htmlFor="password">Password</label>
+        <Input
+          register={register}
+          name="password"
+          placeholder="••••••••"
+          type="password"
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password.message}</p>
+        )}
 
         <button
           type="submit"
           className="group relative flex h-11 w-full items-center justify-center rounded-md bg-gradient-to-br from-black to-neutral-700 font-medium text-white transition hover:brightness-110"
         >
           Sign In →
-          <BottomGradient />
         </button>
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
@@ -89,16 +100,3 @@ export function SignInForm() {
     </div>
   );
 }
-
-const BottomGradient = () => (
-  <>
-    <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
-    <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover:opacity-100" />
-  </>
-);
-
-const LabelInputContainer = ({ children, className }) => (
-  <div className={cn("flex w-full flex-col space-y-2", className)}>
-    {children}
-  </div>
-);
