@@ -31,11 +31,11 @@ export function SignInForm() {
 
   const helper = new Helper();
 
-  async function submit() {
+  async function submit(data) {
     try {
-              const formdata = new FormData();
+      
 
-      const res = await service.login(formdata);
+      const res = await service.login(data);
       console.log(res.existingUser);
       const token = res.token;
       const role = res.existingUser.role;
@@ -89,12 +89,12 @@ export function SignInForm() {
 
         <button
           type="submit"
-          className="group relative flex h-11 w-full items-center justify-center rounded-md bg-gradient-to-br from-black to-neutral-700 font-medium text-white transition hover:brightness-110"
+          className="group relative flex h-11 w-full items-center justify-center rounded-md bg-linear-to-br from-black to-neutral-700 font-medium text-white transition hover:brightness-110"
         >
           Sign In →
         </button>
 
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
+        <div className="h-px w-full bg-linear-to-r from-transparent via-neutral-300 to-transparent" />
       </form>
       <ToastContainer />
     </div>

@@ -43,7 +43,7 @@ const iconMap = {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50">
+    <div className="min-h-screen bg-linear-to-b from-white to-neutral-50">
       <TopHeroSection>
         <div className="text-center">
           <Heading1 text="Contact Us" className="mb-4" />
@@ -63,7 +63,7 @@ const iconMap = {
             if (!iconData) return null; // prevents crash if api sends invalid icon
 
             const IconComponent = iconData.icon;
-            const gradientColor = iconData.color;
+            const linearColor = iconData.color;
 
             return (
               <InfoCard
@@ -72,7 +72,7 @@ const iconMap = {
                 title={m.title}
                 description={m.description}
                 contact={m.value}
-                color={gradientColor}
+                color={linearColor}
               />
             );
           })}
@@ -96,14 +96,14 @@ const iconMap = {
             if (!iconData) return null; // prevents crash if api sends invalid icon
 
             const IconComponent = iconData.icon;
-            const gradientColor = iconData.color;
+            const linearColor = iconData.color;
                   return (
 
                     <InfoCard2
                       icon={<IconComponent className="w-6 h-6" />}
                       title={m.title}
                       description={m.description}
-                      color={gradientColor}
+                      color={linearColor}
 
                     />
                   )
@@ -113,7 +113,7 @@ const iconMap = {
             </div>
 
             {/* Key Points */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
+            <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
               <h3 className="text-xl font-bold text-neutral-800 mb-6">
                 Why Choose Us
               </h3>
@@ -230,7 +230,7 @@ function ContactForm() {
 
       <button
         type="submit"
-        className="group w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+        className="group w-full py-4 px-6 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
       >
         <span>Send Message</span>
         <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { Heading2, ParagraphText } from "../../Components/Typography";
-import { FeedbackService } from "../../services/FeedbackService";
 import { FaStar } from "react-icons/fa";
 import Loader from "../../Components/Loader";
+import { FeedbackService } from "../../services/FeedbackService";
 
 export default function Feedback() {
   const [Feedbacks, setFeedbacks] = useState([]);

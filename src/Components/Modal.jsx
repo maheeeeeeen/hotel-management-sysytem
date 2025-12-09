@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { bookingService } from "../services/BookingService";
 import { useNavigate } from "react-router-dom";
+import { Input } from "./InputFields";
+import { FeedbackService } from "../services/FeedbackService";
+import { FeedbackSchema } from "../services/validation/zodSchema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 
 export function BookingModal({ isOpen, onClose, roomId }) {
   const [checkInDate, setCheckInDate] = useState("");
@@ -8,7 +13,7 @@ export function BookingModal({ isOpen, onClose, roomId }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const service = new bookingService();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   if (!isOpen) return null;
 
   const handleBooking = async (e) => {
@@ -24,7 +29,6 @@ export function BookingModal({ isOpen, onClose, roomId }) {
       });
       console.log(res);
       navigate(`/booking/${res.booking._id}`);
-      
 
       setMessage({ type: "success", text: "Booking Successful!" });
       setTimeout(() => {
@@ -41,7 +45,9 @@ export function BookingModal({ isOpen, onClose, roomId }) {
   };
 
   return (
-<div className="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex justify-center items-center z-50">      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 animate-fadeIn">
+    <div className="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex justify-center items-center z-50">
+      {" "}
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 animate-fadeIn">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Book Room</h2>
@@ -95,6 +101,98 @@ export function BookingModal({ isOpen, onClose, roomId }) {
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
             {loading ? "Processing..." : "Confirm Booking"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+export function FeedbackModal({ isOpen, onClose }) {
+  const service = new FeedbackService();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: zodResolver(FeedbackSchema),
+    defaultValues: {
+      comment: "",
+      rating: 0,
+    },
+    mode: "onChange",
+  });
+
+  async function submit(body) {
+    try {
+      const res = await service.addFeedback(body);
+      console.log("Review added", res);
+
+      toast("Feedback submitted successfully!");
+      reset();
+      onClose();
+    } catch (error) {
+      toast(error.message || "Something went wrong");
+    }
+  }
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 p-4">
+      <div className="bg-white w-full max-w-md rounded-xl shadow-lg p-6 animate-fadeIn">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold text-gray-800">
+            Add Your Feedback
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-600 hover:text-black text-2xl leading-none"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit(submit)} className="space-y-4">
+          {/* Comment Input */}
+          <div>
+            <Input
+              register={register}
+              placeholder="Enter Comment"
+              name="comment"
+              type="text"
+            />
+            {errors.comment && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.comment.message}
+              </p>
+            )}
+          </div>
+
+          {/* Rating Input */}
+          <div>
+            <Input
+              register={register}
+              placeholder="Add rating (1 to 5)"
+              name="rating"
+              type="number"
+            />
+            {errors.rating && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.rating.message}
+              </p>
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-medium transition"
+          >
+            Submit Feedback
           </button>
         </form>
       </div>

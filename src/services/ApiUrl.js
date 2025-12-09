@@ -21,7 +21,7 @@ export const allApiEndponts = {
   getAllbookings: `${environment.baseUrl}bookings`,
   getAllUserbookings: `${environment.baseUrl}userbooking`,
   getbookingByid: `${environment.baseUrl}booking`,
-  cancelbookings:`${environment.baseUrl}cancelbooking`,
+  cancelbookings: `${environment.baseUrl}cancelbooking`,
 
   //---------------- FEEDBACK ROUTES ------------------------
   addfeedback: `${environment.baseUrl}createFeedback`,
@@ -33,4 +33,6 @@ export const allApiEndponts = {
   addInfo: `${environment.baseUrl}addinfo`,
   getinfobyid: `${environment.baseUrl}info`,
   updateInfo: `${environment.baseUrl}info`,
+
+
 };
