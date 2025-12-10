@@ -300,7 +300,7 @@ if (loading) {
                     <span className="text-gray-500 ml-1">(128 reviews)</span>
                   </div>
                 </div>
-                <Button text="Book now" onclick={() => setOpenBooking(true)} />
+                <Button text="Book now" onClick={() => setOpenBooking(true)} />
 
                 {/* Quick Info */}
                 <div className="mt-6 pt-6 border-t border-gray-200">

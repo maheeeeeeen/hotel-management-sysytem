@@ -131,7 +131,7 @@ export default function AdminBookings() {
                     </button>
                   </Link>
 
-                  {b.status !== "cancelled" ? (
+                  {b.status !== "cancelled" && b.status !== "confirmed"  ? (
                     <button
                       onClick={() => {
                         setSelectedBookingId(b._id);

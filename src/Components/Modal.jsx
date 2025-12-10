@@ -17,6 +17,7 @@ export function BookingModal({ isOpen, onClose, roomId }) {
   if (!isOpen) return null;
 
   const handleBooking = async (e) => {
+    console.log("button clickeddddddd")
     e.preventDefault();
     setLoading(true);
     setMessage(null);

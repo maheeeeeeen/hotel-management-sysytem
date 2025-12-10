@@ -74,4 +74,24 @@ export class bookingService {
   }
 }
 
+async confirmBooking(id , data) {
+  try {
+    const response = await axiosInstance.put(
+      `${allApiEndponts.confirmbookings}/${id}`, 
+      {data}, // empty body
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Confirm booking error:", error);
+    throw error;
+  }
+}
+
 }
