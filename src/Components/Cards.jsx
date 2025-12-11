@@ -4,6 +4,7 @@ import React from "react";
 import Button from "./Button";
 import { Heading1, Heading2 } from "./Typography";
 import { Link } from "react-router-dom";
+import { Edit } from "lucide-react";
 export function RoomCard({ img, title, ameneties, price, space, link }) {
   const statusColors = {
     available: "bg-green-500",
@@ -81,7 +82,7 @@ export function GridCard({ icon, title, desc }) {
     </div>
   );
 }
-export function InfoCard({ icon, title, description, contact, color }) {
+export function InfoCard({ icon, title, description, contact, color  }) {
   return (
     <div className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-neutral-100 hover:scale-[1.02]">
       <div
@@ -106,6 +107,30 @@ export function InfoCard2({ icon, title, description, color }) {
         <h3 className="font-semibold text-neutral-800">{title}</h3>
         <p className="text-neutral-600">{description}</p>
       </div>
+    </div>
+  );
+}
+
+export function AdminCard({ icon, title, description, contact, onClick , color}) {
+  return (
+   <div className="w-xl mx-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-md rounded-xl p-6 hover:shadow-lg transition">
+      <div className="flex items-center gap-3 mb-4">
+        <div className={`p-3 text-white  rounded-lg  text-xl bg-linear-to-br ${color}`}>
+          {icon}
+        </div>
+
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+          <p className="text-sm text-gray-500">{description}</p>
+        </div>
+      </div>
+    <div className="flex justify-between ">
+
+      <div className="text-sm font-medium text-gray-700">
+        {contact}
+      </div>
+      <button onClick={onClick}><Edit/></button>
+    </div>
     </div>
   );
 }

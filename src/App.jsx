@@ -20,6 +20,7 @@ import AddRoomForm from "./Pages/admin/rooms/AddRoom";
 import ViewBooking from "./Pages/admin/bookings/ViewBooking";
 import AdminBookings from "./Pages/admin/bookings/AdminBooking";
 import ViewRoom from "./Pages/admin/rooms/ViewRoom";
+import AboutContent from "./Pages/admin/AboutContent";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path="/admin/booking/:id" element={<ViewBooking />} />
           <Route path="/admin/feedbacks" element={<Feedback />} />
           <Route path="/admin/users" element={<Users />} />
+          <Route path="/admin/about" element={<AboutContent />} />
         </Route>
       </Routes>
     </>

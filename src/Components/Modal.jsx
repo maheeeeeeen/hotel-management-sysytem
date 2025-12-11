@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { bookingService } from "../services/BookingService";
 import { useNavigate } from "react-router-dom";
 import { Input } from "./InputFields";
@@ -196,6 +196,80 @@ export function FeedbackModal({ isOpen, onClose }) {
             Submit Feedback
           </button>
         </form>
+      </div>
+    </div>
+  );
+}
+
+
+export function EditInfoModal({ open, onClose, data, onSave }) {
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    value: "",
+  });
+
+  useEffect(() => {
+    if (data) {
+      setForm({
+        title: data.title,
+        description: data.description,
+        value: data.value,
+      });
+    }
+  }, [data]);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    onSave(form);
+  };
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
+      <div className="bg-white p-6 rounded-lg w-96 shadow-xl">
+        <h2 className="text-xl font-bold mb-4">Edit Info</h2>
+
+        <input
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          placeholder="Title"
+          className="w-full border p-2 rounded mb-2"
+        />
+
+        <input
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Description"
+          className="w-full border p-2 rounded mb-2"
+        />
+
+        <input
+          name="value"
+          value={form.value}
+          onChange={handleChange}
+          placeholder="Value"
+          className="w-full border p-2 rounded mb-4"
+        />
+
+        <div className="flex justify-end gap-2">
+          <button className="px-4 py-2 bg-gray-300 rounded" onClick={onClose}>
+            Cancel
+          </button>
+
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+            onClick={handleSubmit}
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );

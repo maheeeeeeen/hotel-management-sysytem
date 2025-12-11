@@ -35,5 +35,7 @@ export const allApiEndponts = {
   getinfobyid: `${environment.baseUrl}info`,
   updateInfo: `${environment.baseUrl}info`,
 
-
+  //------------------ ABOUT INFO -----------------------------
+  createAbout: `${environment.baseUrl}add`,
+  getAllContent: `${environment.baseUrl}allcontent`,
 };

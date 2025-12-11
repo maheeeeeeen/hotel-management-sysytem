@@ -28,11 +28,11 @@ export function Heading2({ text }) {
   );
 }
 
-export function ParagraphText({ text }) {
+export function ParagraphText({ text , className }) {
     return (
 
   <motion.p
-    className="capitalize text-md  text-black"
+    className={`capitalize text-md  text-black ${className}`}
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: 0.4 }}
