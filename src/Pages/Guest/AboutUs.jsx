@@ -14,63 +14,26 @@ import { InfoService } from "../../services/infoService";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 export default function AboutUs() {
-  const images = [
-    { src: img1, alt: "Luxury Lobby" },
-    { src: img2, alt: "Premium Suite" },
-    { src: img3, alt: "Fine Dining" },
-    { src: img1, alt: "Spa Facility" },
-    { src: img2, alt: "Conference Hall" },
-    { src: img3, alt: "Swimming Pool" },
-  ];
+   const [images, setimages] = useState([]);
+   const imageservice = new AboutService();
+ 
+  
 
-  // const features = [
-  //   "Luxurious rooms with panoramic views",
-  //   "24/7 concierge service",
-  //   "World-class spa and wellness center",
-  //   "Multiple fine dining restaurants",
-  //   "State-of-the-art conference facilities",
-  //   "Indoor and outdoor swimming pools",
-  //   "Fitness center with personal trainers",
-  //   "Airport transfer service",
-  // ];
 
-  const stats = [
-    {
-      icon: <FaStar className="text-yellow-500" />,
-      value: "5 Star",
-      label: "Rating",
-    },
-    {
-      icon: <FaHotel className="text-blue-500" />,
-      value: "250+",
-      label: "Rooms",
-    },
-    {
-      icon: <FaUsers className="text-green-500" />,
-      value: "50+",
-      label: "Staff",
-    },
-    {
-      icon: <FaAward className="text-purple-500" />,
-      value: "15+",
-      label: "Awards",
-    },
-    {
-      icon: <GiWorld className="text-red-500" />,
-      value: "25+",
-      label: "Countries",
-    },
-    {
-      icon: <MdOutlineHotelClass className="text-indigo-500" />,
-      value: "10+",
-      label: "Years",
-    },
-  ];
 
   const [content, setContent] = useState([]);
   const service = new AboutService();
   const [info, setInfo] = useState([]);
   const infoService = new InfoService();
+   async function getAlImages() {
+     try {
+       const response = await imageservice.getAllGallery();
+       setimages(response);
+       console.log("images", response);
+     } catch (error) {
+       console.log(error);
+     }
+   }
   async function GetAllContent() {
     try {
       const res = await service.GetAllContent();
@@ -92,6 +55,7 @@ export default function AboutUs() {
   useEffect(() => {
     GetAllContent();
     GetallInfo();
+    getAlImages()
   }, []);
 
   const iconMap = {
@@ -171,7 +135,7 @@ export default function AboutUs() {
                 className="relative overflow-hidden rounded-2xl group"
               >
                 <img
-                  src={image.src}
+                  src={image.ImageUrl}
                   alt={image.alt}
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                 />

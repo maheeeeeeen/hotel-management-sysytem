@@ -38,4 +38,8 @@ export const allApiEndponts = {
   //------------------ ABOUT INFO -----------------------------
   createAbout: `${environment.baseUrl}add`,
   getAllContent: `${environment.baseUrl}allcontent`,
+
+   //------------------ GALLERY-----------------------------
+   creategallery: `${environment.baseUrl}upload`,
+  getAllGallery: `${environment.baseUrl}gallery`,
 };

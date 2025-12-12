@@ -1,21 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import {
-  IoLocationOutline,
-  IoBedOutline,
-  IoRestaurantOutline,
-  IoCalendarOutline,
-  IoCarOutline,
-  IoBusinessOutline,
-} from "react-icons/io5";
-import {
-  FaWifi,
-  FaSwimmingPool,
-  FaSpa,
-  FaConciergeBell,
-  FaShieldAlt,
-} from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -23,54 +8,16 @@ import "swiper/css/pagination";
 import slider1 from "../../assets/hotelSlider1.jpg";
 import slider2 from "../../assets/hotelSlider2.jpg";
 import slider3 from "../../assets/hotelSlider3.jpg";
-import { GridCard } from "../../Components/Cards";
-import { GridLayout } from "../../Components/ImageComponent";
+
 import Testimonials from "../../Components/Testimonials";
-import { BookingForm } from "./BookingForm";
+
 import Button from "../../Components/Button";
-import { FiMessageSquare, FiStar } from "react-icons/fi";
+
 import { FeedbackModal } from "../../Components/Modal";
+import { FiStar } from "react-icons/fi";
+import { AboutService } from "../../services/AboutService";
 
 export default function HomePage() {
-  const services = [
-    {
-      serviceIcon: <IoBedOutline className="text-3xl" />,
-      serviceTitle: "Luxury Accommodation",
-      serviceDesc:
-        "Spacious rooms with premium amenities, stunning views, and 24/7 room service for ultimate comfort.",
-    },
-    {
-      serviceIcon: <IoRestaurantOutline className="text-3xl" />,
-      serviceTitle: "Fine Dining",
-      serviceDesc:
-        "Multiple restaurants offering international cuisine, prepared by award-winning chefs using local ingredients.",
-    },
-    {
-      serviceIcon: <FaSwimmingPool className="text-3xl" />,
-      serviceTitle: "Infinity Pool",
-      serviceDesc:
-        "Stunning infinity pool with panoramic views, poolside service, and comfortable lounging areas.",
-    },
-    {
-      serviceIcon: <FaSpa className="text-3xl" />,
-      serviceTitle: "Wellness Spa",
-      serviceDesc:
-        "Revitalizing spa treatments, massage therapy, and wellness programs for complete relaxation.",
-    },
-    {
-      serviceIcon: <FaConciergeBell className="text-3xl" />,
-      serviceTitle: "Concierge Service",
-      serviceDesc:
-        "Personalized assistance for tours, transportation, reservations, and local experiences.",
-    },
-    {
-      serviceIcon: <FaWifi className="text-3xl" />,
-      serviceTitle: "High-Speed Connectivity",
-      serviceDesc:
-        "Complimentary high-speed WiFi throughout the property with dedicated business center access.",
-    },
-  ];
-
   const features = [
     { icon: "🏨", title: "200+ Rooms", desc: "Luxury suites & villas" },
     { icon: "⭐", title: "5-Star Rating", desc: "Award-winning service" },
@@ -79,55 +26,73 @@ export default function HomePage() {
   ];
   const [openModal, setOpenModal] = useState(false);
 
+  const [images, setimages] = useState([]);
+  const service = new AboutService();
+
+  async function getAlImages() {
+    try {
+      const response = await service.getAllGallery();
+      setimages(response);
+      console.log("images", response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getAlImages();
+  }, []);
   return (
     <>
-      {/* Hero Section with Booking Form */}
-      <div className="relative min-h-screen overflow-hidden">
-    
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-32 pb-20">
-          {/* Left Content */}
-          <div className="space-y-8 text-black ">
-            {/* Premium Badge */}
-            <div className=" flex items-center justify-center">
-  <div className="inline-flex justify-center mx-auto items-center space-x-3 px-6 py-3 bg-linear-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-full border border-white/20">
-    <div className="h-2 w-2 rounded-full bg-blue-600 animate-ping"></div>
-    <span className="text-lg font-semibold">
-      🏆 Luxury Hotel & Resort Since 1995
-    </span>
-  </div>
-</div>
-
-
-            {/* Main Headline */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-center">
-              <span className="block text-black bg-clip-text">
-                Experience Luxury
-              </span>
-              <span className="block mt-4">Redefined</span>
-            </h1>
-
-            {/* Description */}
-            <p className="text-xl text-black leading-relaxed text-center">
-              Where impeccable service meets breathtaking design. Discover an
-              oasis of tranquility with world-class amenities, gourmet dining,
-              and unforgettable experiences.
-            </p>
-
-            {/* Features */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
-              {features.map((feature, idx) => (
-                <div key={idx} className="text-center group">
-                  <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-                    {feature.icon}
-                  </div>
-                  <div className="font-bold text-lg">{feature.title}</div>
-                  <div className="text-sm text-blue-100/70">{feature.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+      
+    <div className="relative min-h-screen overflow-hidden bg-cover bg-center bg-no-repeat" 
+     style={{backgroundImage: 'url("https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'}}>
+  
+  {/* Optional: Dark overlay for better text contrast */}
+  <div className="absolute inset-0 bg-black/30"></div>
+  
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-32 pb-20">
+    {/* Left Content */}
+    <div className="space-y-8 text-white">
+      {/* Premium Badge */}
+      <div className="flex items-center justify-center">
+        <div className="inline-flex justify-center mx-auto items-center space-x-3 px-6 py-3 bg-linear-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-full border border-white/20">
+          <div className="h-2 w-2 rounded-full bg-blue-600 animate-ping"></div>
+          <span className="text-lg font-semibold">
+            🏆 Luxury Hotel & Resort Since 1995
+          </span>
         </div>
       </div>
+
+      {/* Main Headline */}
+      <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-center">
+        <span className="block text-white bg-clip-text">
+          Experience Luxury
+        </span>
+        <span className="block mt-4">Redefined</span>
+      </h1>
+
+      {/* Description */}
+      <p className="text-xl text-white leading-relaxed text-center">
+        Where impeccable service meets breathtaking design. Discover an
+        oasis of tranquility with world-class amenities, gourmet dining,
+        and unforgettable experiences.
+      </p>
+
+      {/* Features */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
+        {features.map((feature, idx) => (
+          <div key={idx} className="text-center group">
+            <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+              {feature.icon}
+            </div>
+            <div className="font-bold text-lg">{feature.title}</div>
+            <div className="text-sm text-white/70">{feature.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* Image Slider Section */}
       <div className="py-20 bg-linear-to-b from-white to-gray-50">
@@ -156,29 +121,22 @@ export default function HomePage() {
             modules={[Pagination]}
             className="mySwiper"
           >
-            {[slider1, slider2, slider3, slider1, slider2, slider3].map(
-              (img, index) => (
-                <SwiperSlide key={index}>
-                  <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
-                    <img
-                      src={img}
-                      alt={`Hotel View ${index + 1}`}
-                      className="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <h3 className="text-white text-xl font-bold">
-                          Luxury Suite {index + 1}
-                        </h3>
-                        <p className="text-white/80 mt-2">
-                          Starting from ${299 + index * 50}/night
-                        </p>
-                      </div>
+            {images.map((img, index) => (
+              <SwiperSlide key={index}>
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+                  <img
+                    src={img.ImageUrl}
+                    alt={`Hotel View ${index + 1}`}
+                    className="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <p className="text-white/80 mt-2">{img.description}</p>
                     </div>
                   </div>
-                </SwiperSlide>
-              )
-            )}
+                </div>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>

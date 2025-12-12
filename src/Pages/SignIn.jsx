@@ -12,6 +12,8 @@ import { logInSchema } from "../services/validation/zodSchema";
 
 export function SignInForm() {
   const service = new AuthService();
+  const [loading, setloading] = useState(false);
+
   const {
     register,
     control,
@@ -33,10 +35,9 @@ export function SignInForm() {
 
   async function submit(data) {
     try {
-      
-
       const res = await service.login(data);
       console.log(res.existingUser);
+      setloading(true);
       const token = res.token;
       const role = res.existingUser.role;
 
@@ -56,7 +57,7 @@ export function SignInForm() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-2xl bg-white px-6 py-8 shadow-lg">
+    <div className="mx-auto w-full max-w-md rounded-2xl bg-white px-6 py-8 ">
       <h2 className="text-center text-2xl font-bold text-neutral-800">
         Sign In
       </h2>
@@ -65,7 +66,10 @@ export function SignInForm() {
         Sign in here to get access to your account
       </p>
 
-      <form className="mt-8 space-y-5" onSubmit={handleSubmit(submit)}>
+      <form
+        className="mt-10 space-y-6 backdrop-blur-xl shadow-lg border border-neutral-200 p-8 "
+        onSubmit={handleSubmit(submit)}
+      >
         <label htmlFor="email">Email Address</label>
         <Input
           register={register}
@@ -91,7 +95,7 @@ export function SignInForm() {
           type="submit"
           className="group relative flex h-11 w-full items-center justify-center rounded-md bg-linear-to-br from-black to-neutral-700 font-medium text-white transition hover:brightness-110"
         >
-          Sign In →
+          {loading ? "Signing in ...." : "Sign In →"}
         </button>
 
         <div className="h-px w-full bg-linear-to-r from-transparent via-neutral-300 to-transparent" />

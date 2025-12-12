@@ -9,6 +9,8 @@ import {
 } from "motion/react";
 
 import React, { useRef, useState } from "react";
+import logo from "../../assets/hotel logo.png";
+import { Link } from "react-router-dom";
 
 
 export const Navbar = ({
@@ -67,7 +69,7 @@ export const NavBody = ({
         minWidth: "800px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
+        "relative z-60 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
         visible && "bg-white/80 ",
         className
       )}>
@@ -91,19 +93,19 @@ export const NavItems = ({
         className
       )}>
       {items.map((item, idx) => (
-        <a
+       <Link
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
           className="relative px-4 py-2 text-neutral-600 "
           key={`link-${idx}`}
-          href={item.link}>
+          to={item.link}>
           {hovered === idx && (
             <motion.div
               layoutId="hovered"
               className="absolute inset-0 h-full w-full rounded-full bg-gray-100" />
           )}
           <span className="relative z-20">{item.name}</span>
-        </a>
+        </Link>
       ))}
     </motion.div>
   );
@@ -161,7 +163,7 @@ export const MobileNavMenu = ({
   onClose
 }) => {
   return (
-    <AnimatePresence>
+   <AnimatePresence>
       {isOpen && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -191,21 +193,21 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
-      href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black">
+    <Link
+      to="#"
+      className="relative z-20 mr-4 flex  items-center space-x-2 px-2 py-1 text-sm font-normal text-black">
       <img
-        src="https://assets.aceternity.com/logo-dark.png"
+        src={logo}
         alt="logo"
-        width={30}
-        height={30} />
-      <span className="font-medium text-black ">Luxury Stay Hospitality</span>
-    </a>
+        width={70}
+        height={70} />
+      
+    </Link>
   );
 };
 
 export const NavbarButton = ({
-  href,
+  to,
   as: Tag = "a",
   children,
   className,
@@ -226,7 +228,7 @@ export const NavbarButton = ({
 
   return (
     <Tag
-      href={href || undefined}
+      to={to || undefined}
       className={cn(baseStyles, variantStyles[variant], className)}
       {...props}>
       {children}

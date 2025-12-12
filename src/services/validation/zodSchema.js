@@ -8,6 +8,19 @@ export const logInSchema = z.object({
     .min(1, "Password is required")
     .min(5, "Password must be at least 5 characters"),
 });
+
+export const SignInSchema = z.object({
+  name: z.string().min(1, "Name Is required"),
+  city: z.string().min(1, "City Is required"),
+  number: z.coerce.number().min(1, "Contact Number Is required"),
+
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(5, "Password must be at least 5 characters"),
+});
 export const addRoomSchema = z.object({
   roomNumber: z.number().min(1, "Room number required"),
   description: z.string().min(1, "Description Required"),

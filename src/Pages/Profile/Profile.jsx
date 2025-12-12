@@ -7,12 +7,14 @@ import AuthService from "../../services/AuthService";
 import BookingTab from "./BookingTab";
 import PersonalInformation from "./PersonalInformation";
 import { motion } from "framer-motion";
+import Button from "../../Components/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const service = new AuthService()
   const [activeTab, setActiveTab] = useState("profile");
   const [user, setUser] = useState({});
-
+const navigate = useNavigate()
   // Fetch user from localStorage or API
   
   const fetchUser = async () => {
@@ -37,6 +39,12 @@ export default function Profile() {
     { id: "profile", label: "Profile" },
     { id: "bookings", label: "My Bookings" },
   ];
+    const handleLogout = () => {
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
 
   return (
     <div className="w-full min-h-screen bg-gray-50/30">
@@ -53,7 +61,7 @@ export default function Profile() {
                 <User size={40} />
               </div>
             </div>
-
+       
             <h2 className="text-xl font-semibold text-gray-900 mb-1">
               {user.name || "Full Name"}
             </h2>
@@ -80,6 +88,7 @@ export default function Profile() {
                 </button>
               ))}
             </nav>
+             <Button text="LogOut" onClick={handleLogout}/>
           </div>
         </div>
 
@@ -93,6 +102,7 @@ export default function Profile() {
           {activeTab === "profile" && <PersonalInformation />}
           {activeTab === "bookings" && <BookingTab />}
         </motion.div>
+        
       </div>
     </div>
   );

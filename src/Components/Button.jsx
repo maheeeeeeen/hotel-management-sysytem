@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Button = ({text , onClick}) => {
   return (
     <StyledWrapper>
-      <button className="button" onClick={onClick}>{text}</button>
+      <button  className="button" onClick={onClick}>{text}</button>
     </StyledWrapper>
   );
 }
