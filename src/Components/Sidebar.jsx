@@ -48,9 +48,16 @@ export function SidebarDemo() {
         <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
-     {
+    {
       label: "Users",
       to: "/admin/users",
+      icon: (
+        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Contacts",
+      to: "/admin/contacts",
       icon: (
         <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
@@ -70,7 +77,8 @@ export function SidebarDemo() {
         "mx-auto flex w-full  flex-1 flex-col overflow-hidden  bg-white md:flex-row",
         // for your use case, use `h-screen` instead of `h-[60vh]`
         "h-screen"
-      )}>
+      )}
+    >
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
@@ -92,13 +100,15 @@ export function SidebarDemo() {
                     className="h-7 w-7 shrink-0 rounded-full"
                     width={50}
                     height={50}
-                    alt="Avatar" />
+                    alt="Avatar"
+                  />
                 ),
-              }} />
+              }}
+            />
           </div>
         </SidebarBody>
       </Sidebar>
-    <div className="flex-1 bg-white overflow-y-auto p-5">
+      <div className="flex-1 bg-white overflow-y-auto p-5">
         <Outlet />
       </div>
     </div>
@@ -120,10 +130,7 @@ export const Logo = () => (
 export const LogoIcon = () => (
   <Link to="#" className="flex items-center space-x-2 py-1 text-sm text-black">
     <div className="h-5 w-6 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-white text-center font-bold">
-AP
-
+      AP
     </div>
   </Link>
 );
-
-

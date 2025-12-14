@@ -35,11 +35,15 @@ export const allApiEndponts = {
   getinfobyid: `${environment.baseUrl}info`,
   updateInfo: `${environment.baseUrl}info`,
 
+  //--------------- CONTACT Us -----------------------------
+  getContact: `${environment.baseUrl}contact`,
+  addContact: `${environment.baseUrl}contact`,
+
   //------------------ ABOUT INFO -----------------------------
   createAbout: `${environment.baseUrl}add`,
   getAllContent: `${environment.baseUrl}allcontent`,
 
-   //------------------ GALLERY-----------------------------
-   creategallery: `${environment.baseUrl}upload`,
+  //------------------ GALLERY-----------------------------
+  creategallery: `${environment.baseUrl}upload`,
   getAllGallery: `${environment.baseUrl}gallery`,
 };

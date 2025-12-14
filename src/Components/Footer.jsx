@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
-import logo from "../assets/hotel logo.png";
+import logo from "../assets/hotel logo 2.png";
 
 const Footer = () => {
   return (

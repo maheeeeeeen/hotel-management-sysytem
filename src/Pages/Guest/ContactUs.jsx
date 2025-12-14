@@ -5,6 +5,11 @@ import { Input } from "../../Components/InputFields";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import { InfoCard, InfoCard2 } from "../../Components/Cards";
 import { InfoService } from "../../services/infoService";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { contactSchema } from "../../services/validation/zodSchema";
+import { ContactService } from "../../services/ContactService";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ContactUs() {
   const [info, setInfo] = useState([]);
@@ -22,25 +27,24 @@ export default function ContactUs() {
     GetallInfo();
   }, []);
 
-const iconMap = {
-  Mail: {
-    icon: Mail,
-    color: "from-blue-600 to-blue-700", // Trust & communication
-  },
-  Phone: {
-    icon: Phone,
-    color: "from-green-600 to-emerald-700", // Growth & connection
-  },
-  Location: {
-    icon: MapPin,
-    color: "from-purple-600 to-violet-700", // Creativity & uniqueness
-  },
-  Clock: {
-    icon: Clock,
-    color: "from-amber-600 to-orange-700", // Energy & urgency
-  },
-};
-
+  const iconMap = {
+    Mail: {
+      icon: Mail,
+      color: "from-blue-600 to-blue-700", // Trust & communication
+    },
+    Phone: {
+      icon: Phone,
+      color: "from-green-600 to-emerald-700", // Growth & connection
+    },
+    Location: {
+      icon: MapPin,
+      color: "from-purple-600 to-violet-700", // Creativity & uniqueness
+    },
+    Clock: {
+      icon: Clock,
+      color: "from-amber-600 to-orange-700", // Energy & urgency
+    },
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-b from-white to-neutral-50">
@@ -90,25 +94,22 @@ const iconMap = {
               </p>
 
               <div className="space-y-6">
-                {info.map((m)=>{
-                    const iconData = iconMap[m.icon];
+                {info.map((m) => {
+                  const iconData = iconMap[m.icon];
 
-            if (!iconData) return null; // prevents crash if api sends invalid icon
+                  if (!iconData) return null; // prevents crash if api sends invalid icon
 
-            const IconComponent = iconData.icon;
-            const linearColor = iconData.color;
+                  const IconComponent = iconData.icon;
+                  const linearColor = iconData.color;
                   return (
-
                     <InfoCard2
                       icon={<IconComponent className="w-6 h-6" />}
                       title={m.title}
                       description={m.description}
                       color={linearColor}
-
                     />
-                  )
+                  );
                 })}
-                
               </div>
             </div>
 
@@ -158,87 +159,107 @@ const iconMap = {
 }
 
 function ContactForm() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const contactService = new ContactService();
+  const onSubmit = async (data) => {
+    try {
+      await contactService.createContact(data);
+      toast.success("Message sent successfully");
+      reset();
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to send message");
+    }
+  };
+
   return (
-    <form className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <>
+      <ToastContainer />
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-neutral-700">
+              Name *
+            </label>
+            <Input
+              register={register}
+              name={"name"}
+              placeholder="John Doe"
+              className="h-12"
+            />
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name.message}</p>
+            )}
+          </div>
+
+          {/* Email */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-neutral-700">
+              Email Address *
+            </label>
+            <Input
+              register={register}
+              name={"email"}
+              placeholder="example@mail.com"
+              type="email"
+              className="h-12"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Subject */}
         <div className="space-y-2">
-          <label
-            className="block text-sm font-medium text-neutral-700"
-            htmlFor="name"
-          >
-            Name *
+          <label className="block text-sm font-medium text-neutral-700">
+            Subject
           </label>
           <Input
-            id="name"
-            name="name"
-            placeholder="John Doe"
-            type="text"
-            className="h-12 border-neutral-300 focus:border-blue-500 focus:ring-blue-500 transition-all"
-            required
+            register={register}
+            name={"subject"}
+            placeholder="What is this regarding?"
+            className="h-12"
           />
         </div>
 
+        {/* Message */}
         <div className="space-y-2">
-          <label
-            className="block text-sm font-medium text-neutral-700"
-            htmlFor="email"
-          >
-            Email Address *
+          <label className="block text-sm font-medium text-neutral-700">
+            Message *
           </label>
-          <Input
-            id="email"
-            name="email"
-            placeholder="example@mail.com"
-            type="email"
-            className="h-12 border-neutral-300 focus:border-blue-500 focus:ring-blue-500 transition-all"
-            required
+          <textarea
+            {...register("message")}
+            placeholder="Please provide details about your inquiry..."
+            className="w-full h-40 rounded-xl border px-4 py-3 resize-none"
           />
+          {errors.message && (
+            <p className="text-sm text-red-500">{errors.message.message}</p>
+          )}
         </div>
-      </div>
 
-      <div className="space-y-2">
-        <label
-          className="block text-sm font-medium text-neutral-700"
-          htmlFor="subject"
+        {/* Submit */}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="group w-full py-4 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-xl flex justify-center items-center gap-2 disabled:opacity-60"
         >
-          Subject
-        </label>
-        <Input
-          id="subject"
-          name="subject"
-          placeholder="What is this regarding?"
-          type="text"
-          className="h-12 border-neutral-300 focus:border-blue-500 focus:ring-blue-500 transition-all"
-        />
-      </div>
+          <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+          <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </button>
 
-      <div className="space-y-2">
-        <label
-          className="block text-sm font-medium text-neutral-700"
-          htmlFor="message"
-        >
-          Message *
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          placeholder="Please provide details about your inquiry..."
-          className="w-full h-40 rounded-xl border border-neutral-300 px-4 py-3 text-neutral-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all resize-none"
-          required
-        ></textarea>
-      </div>
-
-      <button
-        type="submit"
-        className="group w-full py-4 px-6 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
-      >
-        <span>Send Message</span>
-        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </button>
-
-      <p className="text-center text-neutral-500 text-sm mt-4">
-        By submitting this form, you agree to our privacy policy.
-      </p>
-    </form>
+        <p className="text-center text-neutral-500 text-sm">
+          By submitting this form, you agree to our privacy policy.
+        </p>
+      </form>
+    </>
   );
 }

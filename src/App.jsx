@@ -21,6 +21,7 @@ import ViewBooking from "./Pages/admin/bookings/ViewBooking";
 import AdminBookings from "./Pages/admin/bookings/AdminBooking";
 import ViewRoom from "./Pages/admin/rooms/ViewRoom";
 import AboutContent from "./Pages/admin/AboutContent";
+import AdminContact from "./Pages/admin/Contact";
 
 function App() {
   return (
@@ -41,7 +42,6 @@ function App() {
         {/* Admin dashboard Routes */}
 
         <Route
-          
           element={
             <ProtectedRoute allowedRole="admin">
               <SidebarDemo />
@@ -50,6 +50,7 @@ function App() {
         >
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/rooms" element={<AdminRooms />} />
+          <Route path="/admin/contacts" element={<AdminContact />} />
           <Route path="/admin/room/:id" element={<ViewRoom />} />
           <Route path="/admin/addroom" element={<AddRoomForm />} />
           <Route path="/admin/editroom/:id" element={<AddRoomForm />} />
