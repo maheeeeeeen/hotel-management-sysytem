@@ -42,7 +42,7 @@ const navigate = useNavigate()
     const handleLogout = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/signin");
   };
 
 

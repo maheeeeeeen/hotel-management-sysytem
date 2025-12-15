@@ -6,6 +6,8 @@ import { FeedbackService } from "../services/FeedbackService";
 import { FeedbackSchema } from "../services/validation/zodSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import Button from "./Button";
+import { ToastContainer, toast } from "react-toastify";
 
 export function BookingModal({ isOpen, onClose, roomId }) {
   const [checkInDate, setCheckInDate] = useState("");
@@ -124,6 +126,7 @@ export function FeedbackModal({ isOpen, onClose }) {
     },
     mode: "onChange",
   });
+  const [message, setMessage] = useState(null);
 
   async function submit(body) {
     try {
@@ -134,7 +137,10 @@ export function FeedbackModal({ isOpen, onClose }) {
       reset();
       onClose();
     } catch (error) {
-      toast(error.message || "Something went wrong");
+      setMessage({
+        type: "error",
+        text: error.response?.data?.message || "Something went wrong",
+      });
     }
   }
 
@@ -189,13 +195,25 @@ export function FeedbackModal({ isOpen, onClose }) {
           </div>
 
           {/* Submit Button */}
-          <button
+          <Button text="Submit feedback"/>
+          {/* <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-medium transition"
           >
             Submit Feedback
-          </button>
+          </button> */}
+           {message && (
+          <p
+            className={`mb-3 text-sm ${
+              message.type === "error" ? "text-red-600" : "text-green-600"
+            }`}
+          >
+            {message.text}
+          </p>
+        )}
         </form>
+
+        <ToastContainer/>
       </div>
     </div>
   );

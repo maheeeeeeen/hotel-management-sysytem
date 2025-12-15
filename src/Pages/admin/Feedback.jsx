@@ -71,7 +71,7 @@ export default function Feedback() {
                     {index + 1}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {f.guest.name}
+                    {f.guest?.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   <div className="flex text-yellow-500">

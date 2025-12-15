@@ -238,7 +238,7 @@ export default function HomePage() {
             <div className="relative inline-block group">
               <Button
                 text="Add Your Feedback"
-                onclick={() => setOpenModal(true)}
+                onClick={() => setOpenModal(true)}
               />
 
               {/* Button decorative effect */}

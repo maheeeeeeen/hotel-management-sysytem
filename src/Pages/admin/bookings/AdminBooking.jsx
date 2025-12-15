@@ -104,8 +104,8 @@ export default function AdminBookings() {
             {bookings.map((b, index) => (
               <tr key={b._id}>
                 <td className="px-6 py-4">{index + 1}</td>
-                <td className="px-6 py-4">{b.guest.name}</td>
-                <td className="px-6 py-4">{b.room.roomNumber}</td>
+                <td className="px-6 py-4">{b.guest?.name}</td>
+                <td className="px-6 py-4">{b.room?.roomNumber}</td>
                 <td className="px-6 py-4">{b.room.type}</td>
                 <td className="px-6 py-4">
                   {new Date(b.checkInDate).toLocaleDateString("en-US", {

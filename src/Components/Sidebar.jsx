@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/SidebarUi";
 import {
@@ -9,9 +8,10 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "../lib/utils";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
 export function SidebarDemo() {
+  const navigate = useNavigate(); // Use useNavigate for redirection after logout
   const links = [
     {
       label: "Dashboard",
@@ -62,14 +62,22 @@ export function SidebarDemo() {
         <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
-    {
-      label: "Logout",
-      to: "#",
-      icon: (
-        <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
-    },
+    // {
+    //   label: "Logout",
+    //   to: "#",
+    //   icon: (
+    //     <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+    //   ),
+    // },
   ];
+
+  // Handle logout and redirection to login page
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    navigate("/signin");
+  };
+
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -87,7 +95,16 @@ export function SidebarDemo() {
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
+              <button
+                onClick={handleLogout}
+                className="mt-8 text-red-300 dark:text-red-400 hover:bg-white dark:hover:bg-red-800 rounded-lg p-2 text-sm flex items-center gap-2"
+              >
+                <IconArrowLeft className="h-5 w-5" />
+                <span>Logout</span>
+              </button>
             </div>
+
+            {/* Styled Logout Button */}
           </div>
           <div>
             <SidebarLink
@@ -114,6 +131,7 @@ export function SidebarDemo() {
     </div>
   );
 }
+
 export const Logo = () => (
   <Link to="#" className="flex items-center space-x-2 py-1 text-sm text-black">
     <div className="h-5 w-6 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />

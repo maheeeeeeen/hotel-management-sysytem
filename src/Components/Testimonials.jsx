@@ -67,47 +67,52 @@ export default function Testimonials() {
               1024: { slidesPerView: 3 },
             }}
           >
-            {testimonials.map((testimonial, index) => (
-              <SwiperSlide className="p-3 " key={testimonial.id}>
-                <motion.div
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8  relative transition-all duration-300 hover:-translate-y-2"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  {/* Avatar + Name */}
-                  <div className="flex items-center mb-5">
-                    <div className="text-4xl mr-4">
-                      <FaUserCircle />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-blue-800 text-lg">
-                        {testimonial.guest.name}
-                      </h4>
-                    </div>
-                  </div>
+       {testimonials.length > 0 ? (
+  testimonials.map((testimonial, index) => (
+    <SwiperSlide className="p-3" key={testimonial.id}>
+      <motion.div
+        className="bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 relative transition-all duration-300 hover:-translate-y-2"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        viewport={{ once: true }}
+      >
+        {/* Avatar + Name */}
+        <div className="flex items-center mb-5">
+          <div className="text-4xl mr-4">
+            <FaUserCircle />
+          </div>
+          <div>
+            <h4 className="font-bold text-blue-800 text-lg">
+              {testimonial.guest?.name}
+            </h4>
+          </div>
+        </div>
 
-                  {/* Rating */}
-                  <div className="flex items-center mb-5">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <FiStar
-                        key={i}
-                        className="w-5 h-5 text-yellow-400 fill-yellow-400"
-                      />
-                    ))}
-                  </div>
+        {/* Rating */}
+        <div className="flex items-center mb-5">
+          {[...Array(testimonial.rating)].map((_, i) => (
+            <FiStar
+              key={i}
+              className="w-5 h-5 text-yellow-400 fill-yellow-400"
+            />
+          ))}
+        </div>
 
-                  {/* Quote */}
-                  <div className="relative">
-                    <FiMessageSquare className="absolute -top-3 -left-3 w-9 h-9 text-blue-100" />
-                    <p className="text-gray-700 leading-relaxed pl-6 italic">
-                      "{testimonial.comment}"
-                    </p>
-                  </div>
-                </motion.div>
-              </SwiperSlide>
-            ))}
+        {/* Quote */}
+        <div className="relative">
+          <FiMessageSquare className="absolute -top-3 -left-3 w-9 h-9 text-blue-100" />
+          <p className="text-gray-700 leading-relaxed pl-6 italic">
+            "{testimonial.comment}"
+          </p>
+        </div>
+      </motion.div>
+    </SwiperSlide>
+  ))
+) : (
+  <p>No testimonials found</p> // Fixed typo here: "testionmaols" -> "testimonials"
+)}
+
           </Swiper>
         </div>
 

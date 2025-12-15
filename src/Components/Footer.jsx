@@ -1,6 +1,7 @@
 import React from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 import logo from "../assets/hotel logo 2.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -26,29 +27,25 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#home" className="text-gray-400 hover:text-white">
+                <Link to="/home" className="text-gray-400 hover:text-white">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#rooms" className="text-gray-400 hover:text-white">
+                <Link to="/rooms" className="text-gray-400 hover:text-white">
                   Rooms
-                </a>
+                </Link>
               </li>
+              
               <li>
-                <a href="#services" className="text-gray-400 hover:text-white">
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="text-gray-400 hover:text-white">
+                <Link to="/about" className="text-gray-400 hover:text-white">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="text-gray-400 hover:text-white">
+                <Link to="/contact" className="text-gray-400 hover:text-white">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -59,20 +56,20 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="text-gray-400">123 Luxury St, Paris, France</li>
               <li>
-                <a
-                  href="tel:+123456789"
+                <Link
+                  to="/el:+123456789"
                   className="text-gray-400 hover:text-white"
                 >
                   +1 (234) 567-890
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="mailto:info@luxurystay.com"
+                <Link
+                  to="/ailto:info@luxurystay.com"
                   className="text-gray-400 hover:text-white"
                 >
                   info@luxurystay.com
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -81,38 +78,38 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a
-                href="https://facebook.com"
+              <Link
+                to="/ttps://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white text-2xl"
               >
                 <FaFacebook />
-              </a>
-              <a
-                href="https://instagram.com"
+              </Link>
+              <Link
+                to="/ttps://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white text-2xl"
               >
                 <FaInstagram />
-              </a>
-              <a
-                href="https://twitter.com"
+              </Link>
+              <Link
+                to="/ttps://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white text-2xl"
               >
                 <FaTwitter />
-              </a>
-              <a
-                href="https://linkedin.com"
+              </Link>
+              <Link
+                to="/ttps://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white text-2xl"
               >
                 <FaLinkedin />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
