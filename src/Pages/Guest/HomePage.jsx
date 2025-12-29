@@ -16,6 +16,7 @@ import Button from "../../Components/Button";
 import { FeedbackModal } from "../../Components/Modal";
 import { FiStar } from "react-icons/fi";
 import { AboutService } from "../../services/AboutService";
+import { toast } from "react-toastify";
 
 export default function HomePage() {
   const features = [
@@ -41,58 +42,72 @@ export default function HomePage() {
   useEffect(() => {
     getAlImages();
   }, []);
+  const handleOpenFeedback = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Login required to add feedback");
+  
+      return;
+    }
+
+    setIsFeedbackOpen(true);
+  };
   return (
     <>
-      
-    <div className="relative min-h-screen overflow-hidden bg-cover bg-center bg-no-repeat" 
-     style={{backgroundImage: 'url("https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'}}>
-  
-  {/* Optional: Dark overlay for better text contrast */}
-  <div className="absolute inset-0 bg-black/30"></div>
-  
-  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-32 pb-20">
-    {/* Left Content */}
-    <div className="space-y-8 text-white">
-      {/* Premium Badge */}
-      <div className="flex items-center justify-center">
-        <div className="inline-flex justify-center mx-auto items-center space-x-3 px-6 py-3 bg-linear-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-full border border-white/20">
-          <div className="h-2 w-2 rounded-full bg-blue-600 animate-ping"></div>
-          <span className="text-lg font-semibold">
-            🏆 Luxury Hotel & Resort Since 1995
-          </span>
+      <div
+        className="relative min-h-screen overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage:
+            'url("https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
+        }}
+      >
+        {/* Optional: Dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/30"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-32 pb-20">
+          {/* Left Content */}
+          <div className="space-y-8 text-white">
+            {/* Premium Badge */}
+            <div className="flex items-center justify-center">
+              <div className="inline-flex justify-center mx-auto items-center space-x-3 px-6 py-3 bg-linear-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-full border border-white/20">
+                <div className="h-2 w-2 rounded-full bg-blue-600 animate-ping"></div>
+                <span className="text-lg font-semibold">
+                  🏆 Luxury Hotel & Resort Since 1995
+                </span>
+              </div>
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-center">
+              <span className="block text-white bg-clip-text">
+                Experience Luxury
+              </span>
+              <span className="block mt-4">Redefined</span>
+            </h1>
+
+            {/* Description */}
+            <p className="text-xl text-white leading-relaxed text-center">
+              Where impeccable service meets breathtaking design. Discover an
+              oasis of tranquility with world-class amenities, gourmet dining,
+              and unforgettable experiences.
+            </p>
+
+            {/* Features */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
+              {features.map((feature, idx) => (
+                <div key={idx} className="text-center group">
+                  <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+                    {feature.icon}
+                  </div>
+                  <div className="font-bold text-lg">{feature.title}</div>
+                  <div className="text-sm text-white/70">{feature.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Main Headline */}
-      <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-center">
-        <span className="block text-white bg-clip-text">
-          Experience Luxury
-        </span>
-        <span className="block mt-4">Redefined</span>
-      </h1>
-
-      {/* Description */}
-      <p className="text-xl text-white leading-relaxed text-center">
-        Where impeccable service meets breathtaking design. Discover an
-        oasis of tranquility with world-class amenities, gourmet dining,
-        and unforgettable experiences.
-      </p>
-
-      {/* Features */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
-        {features.map((feature, idx) => (
-          <div key={idx} className="text-center group">
-            <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-              {feature.icon}
-            </div>
-            <div className="font-bold text-lg">{feature.title}</div>
-            <div className="text-sm text-white/70">{feature.desc}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</div>
 
       {/* Image Slider Section */}
       <div className="py-20 bg-linear-to-b from-white to-gray-50">
@@ -236,10 +251,7 @@ export default function HomePage() {
             </div>
 
             <div className="relative inline-block group">
-              <Button
-                text="Add Your Feedback"
-                onClick={() => setOpenModal(true)}
-              />
+              <Button text="Add Your Feedback" onClick={handleOpenFeedback} />
 
               {/* Button decorative effect */}
             </div>

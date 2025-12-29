@@ -19,7 +19,7 @@ export function BookingModal({ isOpen, onClose, roomId }) {
   if (!isOpen) return null;
 
   const handleBooking = async (e) => {
-    console.log("button clickeddddddd")
+    console.log("button clickeddddddd");
     e.preventDefault();
     setLoading(true);
     setMessage(null);
@@ -134,6 +134,7 @@ export function FeedbackModal({ isOpen, onClose }) {
       console.log("Review added", res);
 
       toast("Feedback submitted successfully!");
+
       reset();
       onClose();
     } catch (error) {
@@ -195,30 +196,29 @@ export function FeedbackModal({ isOpen, onClose }) {
           </div>
 
           {/* Submit Button */}
-          <Button text="Submit feedback"/>
+          <Button text="Submit feedback" />
           {/* <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-medium transition"
           >
             Submit Feedback
           </button> */}
-           {message && (
-          <p
-            className={`mb-3 text-sm ${
-              message.type === "error" ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {message.text}
-          </p>
-        )}
+          {message && (
+            <p
+              className={`mb-3 text-sm ${
+                message.type === "error" ? "text-red-600" : "text-green-600"
+              }`}
+            >
+              {message.text}
+            </p>
+          )}
         </form>
 
-        <ToastContainer/>
+        <ToastContainer />
       </div>
     </div>
   );
 }
-
 
 export function EditInfoModal({ open, onClose, data, onSave }) {
   const [form, setForm] = useState({
