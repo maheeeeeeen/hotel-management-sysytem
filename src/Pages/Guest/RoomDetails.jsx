@@ -20,6 +20,8 @@ import {
 import { BookingModal } from "../../Components/Modal";
 import Button from "../../Components/Button";
 import Loader from "../../Components/Loader";
+import Helper from "../../helper/Helper";
+import Swal from "sweetalert2";
 
 // If you don't want to use Lucide icons, you can remove them and use text instead
 
@@ -65,7 +67,24 @@ export default function RoomDetails() {
       );
     }
   };
-if (loading) {
+  const helper = new Helper();
+  const handleOpenModal = () => {
+    const token = helper.getToken();
+
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "Please login to book your room",
+        confirmButtonColor: "#2563eb",
+      });
+
+      return;
+    }
+
+    setOpenBooking(true);
+  };
+  if (loading) {
     return (
       <div className="fixed inset-0 flex items-center justify-center ">
         <Loader />
@@ -300,7 +319,7 @@ if (loading) {
                     <span className="text-gray-500 ml-1">(128 reviews)</span>
                   </div>
                 </div>
-                <Button text="Book now" onClick={() => setOpenBooking(true)} />
+                <Button text="Book now" onClick={handleOpenModal} />
 
                 {/* Quick Info */}
                 <div className="mt-6 pt-6 border-t border-gray-200">

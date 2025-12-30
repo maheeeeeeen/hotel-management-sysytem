@@ -17,6 +17,8 @@ import { FeedbackModal } from "../../Components/Modal";
 import { FiStar } from "react-icons/fi";
 import { AboutService } from "../../services/AboutService";
 import { toast } from "react-toastify";
+import Helper from "../../helper/Helper";
+import Swal from "sweetalert2";
 
 export default function HomePage() {
   const features = [
@@ -29,6 +31,7 @@ export default function HomePage() {
 
   const [images, setimages] = useState([]);
   const service = new AboutService();
+  const helper = new Helper()
 
   async function getAlImages() {
     try {
@@ -43,15 +46,20 @@ export default function HomePage() {
     getAlImages();
   }, []);
   const handleOpenFeedback = () => {
-    const token = localStorage.getItem("token");
+    const token = helper.getToken();
 
     if (!token) {
-      alert("Login required to add feedback");
+        Swal.fire({
+              icon: "warning",
+              title: "Login Required",
+              text: "Please login to add your feedback",
+              confirmButtonColor: "#2563eb",
+            });
   
       return;
     }
 
-    setIsFeedbackOpen(true);
+    setOpenModal(true);
   };
   return (
     <>

@@ -1,74 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/SidebarUi";
 import {
-  IconArrowLeft,
   IconBrandTabler,
-  IconSettings,
-  IconUserBolt,
+  IconBed,
+  IconCalendarCheck,
+  IconInfoCircle,
+  IconMessageDots,
+  IconUsers,
+  IconPhone,
+  IconArrowLeft,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "../lib/utils";
 import { Link, Outlet, useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import Helper from "../helper/Helper";
+import AuthService from "../services/AuthService";
 
 export function SidebarDemo() {
+    const [user, setUser] = useState(null);
+    const service = new AuthService();
+  
+  async function fetchProfile() {
+    try {
+      const res = await service.getProfile();
+      setUser(res);
+     console.log("userrr",res.name)
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
   const navigate = useNavigate(); // Use useNavigate for redirection after logout
+  const iconClass = "h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200";
   const links = [
     {
       label: "Dashboard",
       to: "/admin",
-      icon: (
-        <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
+      icon: <IconBrandTabler className={iconClass} />,
     },
     {
       label: "Rooms",
       to: "/admin/rooms",
-      icon: (
-        <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
+      icon: <IconBed className={iconClass} />,
     },
     {
       label: "Bookings",
       to: "/admin/bookings",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
+      icon: <IconCalendarCheck className={iconClass} />,
     },
     {
       label: "About",
       to: "/admin/about",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
+      icon: <IconInfoCircle className={iconClass} />,
     },
     {
       label: "Feedbacks",
       to: "/admin/feedbacks",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
+      icon: <IconMessageDots className={iconClass} />,
     },
     {
       label: "Users",
       to: "/admin/users",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
+      icon: <IconUsers className={iconClass} />,
     },
     {
       label: "Contacts",
       to: "/admin/contacts",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
+      icon: <IconPhone className={iconClass} />,
     },
-    // {
-    //   label: "Logout",
-    //   to: "#",
-    //   icon: (
-    //     <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-    //   ),
-    // },
   ];
 
   // Handle logout and redirection to login page
@@ -97,9 +100,14 @@ export function SidebarDemo() {
               ))}
               <button
                 onClick={handleLogout}
-                className="mt-8 text-red-300 dark:text-red-400 hover:bg-white dark:hover:bg-red-800 rounded-lg p-2 text-sm flex items-center gap-2"
+                className={cn(
+                  "mt-8 flex items-center gap-2 rounded-lg  py-2 text-sm font-medium",
+                  "text-red-600 dark:text-red-400",
+                  "hover:bg-red-50 dark:hover:bg-red-900/30",
+                  "transition-colors duration-200"
+                )}
               >
-                <IconArrowLeft className="h-5 w-5" />
+                <IconArrowLeft className="h-5 w-5 shrink-0" />
                 <span>Logout</span>
               </button>
             </div>
@@ -109,7 +117,7 @@ export function SidebarDemo() {
           <div>
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: user.name,
                 to: "#",
                 icon: (
                   <img

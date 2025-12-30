@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import Button from "./Button";
 import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export function BookingModal({ isOpen, onClose, roomId }) {
   const [checkInDate, setCheckInDate] = useState("");
@@ -31,12 +32,18 @@ export function BookingModal({ isOpen, onClose, roomId }) {
         checkOutDate,
       });
       console.log(res);
-      navigate(`/booking/${res.booking._id}`);
+      
 
       setMessage({ type: "success", text: "Booking Successful!" });
       setTimeout(() => {
         onClose();
       }, 1200);
+        Swal.fire({
+              icon: "success",
+              title: "Booking Successful",
+              text: "We'll notify you through email ",
+              confirmButtonColor: "#2563eb",
+            });
     } catch (err) {
       setMessage({
         type: "error",
