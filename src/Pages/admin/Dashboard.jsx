@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import MyBarChart from "../../Components/Charts";
+import { bookingService } from "../../services/BookingService";
 
 export default function AdminDashboard() {
+    const [bookings, setBookings] = useState([]);
+  
+    const bookingservice = new bookingService();
+  
+    useEffect(() => {
+      async function fetchBookings() {
+        try {
+          const res = await bookingservice.getAllBookings();
+          setBookings(res);
+          // setLoading(false)
+        } catch (err) {
+          console.error(err);
+        }
+      }
+  
+      fetchBookings();
+    }, []);
+  const totalBookings = bookings.length;
+
   return (
     <div className="bg-gray-50 min-h-screen w-full">
       <main className="flex-grow p-6">
@@ -28,11 +48,11 @@ export default function AdminDashboard() {
               </div>
 
               <div className="w-full md:w-1/2">
-                <div className="bg-gradient-to-r from-green-500 to-teal-600 rounded-xl shadow-md h-36 p-4 text-white">
+                <div className="bg-linear-to-r from-green-500 to-teal-600 rounded-xl shadow-md h-36 p-4 text-white">
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-2xl font-bold">$900.00</p>
-                      <p className="text-gray-200 text-sm mt-1">Total Order</p>
+                      <p className="text-2xl font-bold">{totalBookings}</p>
+                      <p className="text-gray-200 text-sm mt-1">Total Bookings</p>
                     </div>
                     <div className="bg-white/20 p-2 rounded-lg">
                       <ShoppingBagIcon className="h-6 w-6" />
@@ -48,7 +68,7 @@ export default function AdminDashboard() {
         <div className="mb-6">
           <div className="w-full ">
             <div className="bg-white rounded-xl shadow-md p-4 h-[60vh]">
-              <MyBarChart />
+<MyBarChart bookings={bookings} />
             </div>
           </div>
         </div>

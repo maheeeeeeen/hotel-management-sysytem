@@ -117,7 +117,7 @@ export function SidebarDemo() {
           <div>
             <SidebarLink
               link={{
-                label: user.name,
+                label: user?.name,
                 to: "#",
                 icon: (
                   <img

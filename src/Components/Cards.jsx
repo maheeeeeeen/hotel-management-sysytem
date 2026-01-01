@@ -22,13 +22,13 @@ export function RoomCard({ img, title, ameneties, price, space, link }) {
           alt="Hotel"
           className="w-full h-48 sm:h-56 md:h-64 lg:h-48 xl:h-56 object-cover"
         />
-        <span
+        {/* <span
           className={`absolute top-3 left-3 text-white text-xs sm:text-sm font-semibold px-2 py-1 rounded-full ${
             statusColors[space] || "bg-gray-400"
           }`}
         >
           {space.charAt(0).toUpperCase() + space.slice(1)}
-        </span>
+        </span> */}
       </div>
 
       {/* Content */}

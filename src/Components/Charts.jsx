@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Chart } from "react-google-charts";
 
-const data = [
-  ["Year", "Sales", "Expenses"],
-  ["2014", 1000, 400],
-  ["2015", 1170, 460],
-  ["2016", 660, 1120],
-  ["2017", 1030, 540],
-   ["2014", 1000, 400],
-  ["2015", 1170, 460],
-  ["2016", 660, 1120],
-  ["2017", 1030, 540],
-];
+function MyBarChart({ bookings = [] }) {
+  const chartData = useMemo(() => {
+    const yearMap = {};
 
-const options = {
-  chart: {
-    title: "Company Performance",
-    subtitle: "Sales and Expenses over the Years",
-  },
- colors: ["#5BBE60", "#338A94", "#4DXXXX"]
+    bookings.forEach((booking) => {
+      const date = new Date(booking.createdAt).toISOString().split("T")[0];
 
-};
+      if (!yearMap[date]) {
+        yearMap[date] = 0;
+      }
 
-function MyBarChart() {
+      yearMap[date] += 1;
+    });
+
+    const rows = Object.entries(yearMap).map(([date, count]) => [date, count]);
+
+    return [["Year", "Total Bookings"], ...rows];
+  }, [bookings]);
+
+  const options = {
+    chart: {
+      title: "Bookings Overview",
+      subtitle: "Total bookings per year",
+    },
+    colors: ["#5BBE60"],
+  };
+
   return (
     <Chart
       chartType="Bar"
-      width="100%"
+      width="80%"
       height="350px"
-      data={data}
+      data={chartData}
       options={options}
     />
   );

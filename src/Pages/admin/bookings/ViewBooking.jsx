@@ -31,9 +31,15 @@ export default function ViewBooking() {
         console.error("No booking ID provided!");
         return;
       }
+      setLoading(true);
       const res = await service.confirmBooking(id);
 
-      alert("Booking confirmed successfully! Email sent to user.");
+      Swal.fire({
+        icon: "success",
+        title: "Booking Confirmed",
+        text: "Email send to user ",
+        confirmButtonColor: "#2563eb",
+      });
       navigate("/admin/bookings");
       setBooking((prev) => ({
         ...prev,
@@ -42,7 +48,14 @@ export default function ViewBooking() {
     } catch (err) {
       console.error("Error in handleConfirm:", err);
       console.error("Error response:", err.response);
-      alert(err.response?.data?.message || "Something went wrong");
+      Swal.fire({
+        icon: "warning",
+        title: "Confirmation failed",
+        text: err.response?.data?.message || "Something went wrong",
+        confirmButtonColor: "#2563eb",
+      });
+    } finally {
+      setLoading(false); // ✅ stop loader
     }
   };
 
@@ -305,7 +318,7 @@ export default function ViewBooking() {
           </div>
           {booking.status !== "confirmed" && booking.status !== "cancelled" ? (
             <Button
-              text="Confirm Booking"
+              text={loading ? "Confirming..." : "Confirm Booking"}
               onClick={() => {
                 console.log("Booking ID:", booking._id); // Check this value
                 handleConfirm(booking._id);
